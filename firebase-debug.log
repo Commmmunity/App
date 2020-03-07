@@ -1,0 +1,39 @@
+[debug] [2020-03-07T23:28:45.077Z] ----------------------------------------------------------------------
+[debug] [2020-03-07T23:28:45.080Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2020-03-07T23:28:45.080Z] CLI Version:   7.14.0
+[debug] [2020-03-07T23:28:45.080Z] Platform:      darwin
+[debug] [2020-03-07T23:28:45.080Z] Node Version:  v10.16.0
+[debug] [2020-03-07T23:28:45.081Z] Time:          Sun Mar 08 2020 00:28:45 GMT+0100 (GMT+01:00)
+[debug] [2020-03-07T23:28:45.081Z] ----------------------------------------------------------------------
+[debug] [2020-03-07T23:28:45.081Z] 
+[debug] [2020-03-07T23:28:45.098Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-07T23:28:45.098Z] > authorizing via signed-in user
+[debug] [2020-03-07T23:28:45.098Z] [iam] checking project commmmunity-org for permissions ["firebase.projects.get"]
+[debug] [2020-03-07T23:28:45.100Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/commmmunity-org:testIamPermissions  
+
+[debug] [2020-03-07T23:28:45.830Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-07T23:28:45.833Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org  
+ 
+[debug] [2020-03-07T23:28:45.991Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/jc/dev/app'...
+[info] 
+[debug] [2020-03-07T23:28:45.995Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: functions emulator started at http://localhost:5001
+[debug] [2020-03-07T23:28:46.674Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/Users/jc/dev/app/functions" for Cloud Functions...
+[debug] [2020-03-07T23:28:46.743Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-07T23:28:46.743Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-07T23:28:46.743Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-07T23:28:46.744Z] [worker-~diagnostic~-7c8eec9d-925d-44f7-b14a-df105155588d]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_99476.sock
+[debug] [2020-03-07T23:28:46.744Z] [worker-~diagnostic~-7c8eec9d-925d-44f7-b14a-df105155588d]: BUSY
+[info] i  hosting: Serving hosting files from: dist
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2020-03-07T23:28:47.042Z] [runtime-status] [99476] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
+[debug] [2020-03-07T23:28:47.044Z] [runtime-status] [99476] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-07T23:28:47.051Z] [runtime-status] [99476] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-03-07T23:28:47.055Z] [runtime-status] [99476] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-07T23:28:47.056Z] [runtime-status] [99476] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-07T23:28:47.179Z] [worker-~diagnostic~-7c8eec9d-925d-44f7-b14a-df105155588d]: IDLE
