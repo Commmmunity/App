@@ -6,7 +6,7 @@ import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 
-console.log(process.env.HI);
+alert(process.env.VUE_APP_HI);
 
 new Vue({
   router,

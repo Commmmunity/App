@@ -19,7 +19,7 @@ jobs:
         run: npm install @vue/cli-service
       - name: Build
         env:
-          HI: ${{ secrets.HI }}
+          VUE_APP_HI: ${{ secrets.HI }}
         run: npm run build
       - name: Archive Master Artifact
         uses: actions/upload-artifact@master
