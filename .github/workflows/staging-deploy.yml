@@ -1,0 +1,57 @@
+name: MASTER - Build and Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          ref: master
+      - name: Install Dependencies
+        run: npm install
+      - name: Install VueJS
+        run: npm install @vue/cli-service
+      - name: Build
+        env:
+          HI: ${{ secrets.HI }}
+        run: npm run build
+      - name: Archive Master Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          ref: master
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+      - name: Install Dependencies Project
+        run: npm install
+      - name: Install Dependencies Firebase
+        run: cd ./functions && npm install && cd ..
+      - name: Change to master firebase project
+        uses: w9jds/firebase-action@master
+        with:
+          args: use master
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
