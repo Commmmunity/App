@@ -46,7 +46,7 @@ jobs:
       - name: Change to master firebase project
         uses: w9jds/firebase-action@master
         with:
-          args: use master
+          args: use default
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase
