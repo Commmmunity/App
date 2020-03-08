@@ -10,7 +10,6 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "firebase": "^7.10.0",
-    "google-geocoder": "^0.2.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "phone": "^2.4.8",
