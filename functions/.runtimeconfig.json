@@ -1,9 +1,0 @@
-{
-  "slack": {
-    "token": "localtoken"
-  },
-  "google": {
-    "key": "lol",
-    "nothing": "lol"
-  }
-}
