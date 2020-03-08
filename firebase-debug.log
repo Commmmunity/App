@@ -83,3 +83,37 @@
 [info] i  functions: Finished "toolsPlaces" in ~1s
 [debug] [2020-03-08T23:21:11.574Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: IDLE
 [debug] [2020-03-08T23:21:11.574Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-03-08T23:47:26.620Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-03-08T23:47:26.622Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-03-08T23:47:26.622Z] Accepted request OPTIONS /commmmunity-org/us-central1/toolsPlaces --> toolsPlaces
+[debug] [2020-03-08T23:47:26.623Z] [worker-pool] submitWork(triggerId=toolsPlaces)
+[debug] [2020-03-08T23:47:26.624Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_17332.sock
+[debug] [2020-03-08T23:47:26.624Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: BUSY
+[debug] [2020-03-08T23:47:26.660Z] [runtime-status] [17332] Trigger "toolsPlaces" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "toolsPlaces"
+[debug] [2020-03-08T23:47:26.665Z] [runtime-status] [17332] triggerDefinition {"regions":["europe-west1"],"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"toolsPlaces","entryPoint":"toolsPlaces"}
+[debug] [2020-03-08T23:47:26.666Z] [runtime-status] [17332] Running toolsPlaces in mode HTTPS
+[debug] [2020-03-08T23:47:26.689Z] [runtime-status] [17332] Attempting to listen to socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_17332.sock
+[debug] [2020-03-08T23:47:26.711Z] [functions] Runtime ready! Sending request!
+[debug] [2020-03-08T23:47:26.724Z] [runtime-status] [17332] Ephemeral server handling OPTIONS request
+[debug] [2020-03-08T23:47:26.728Z] [runtime-status] [17332] Ephemeral server survived.
+[info] i  functions: Finished "toolsPlaces" in ~1s
+[debug] [2020-03-08T23:47:26.728Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: IDLE
+[debug] [2020-03-08T23:47:26.728Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-03-08T23:47:26.731Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-03-08T23:47:26.731Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-03-08T23:47:26.732Z] Accepted request POST /commmmunity-org/us-central1/toolsPlaces --> toolsPlaces
+[debug] [2020-03-08T23:47:26.732Z] [worker-pool] submitWork(triggerId=toolsPlaces)
+[debug] [2020-03-08T23:47:26.732Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_17332.sock
+[debug] [2020-03-08T23:47:26.732Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: BUSY
+[debug] [2020-03-08T23:47:26.738Z] [runtime-status] [17332] Trigger "toolsPlaces" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "toolsPlaces"
+[debug] [2020-03-08T23:47:26.739Z] [runtime-status] [17332] triggerDefinition {"regions":["europe-west1"],"httpsTrigger":{},"labels":{"deployment-callable":"true"},"name":"toolsPlaces","entryPoint":"toolsPlaces"}
+[debug] [2020-03-08T23:47:26.739Z] [runtime-status] [17332] Running toolsPlaces in mode HTTPS
+[debug] [2020-03-08T23:47:26.739Z] [runtime-status] [17332] Attempting to listen to socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_17332.sock
+[debug] [2020-03-08T23:47:26.740Z] [functions] Runtime ready! Sending request!
+[debug] [2020-03-08T23:47:26.749Z] [runtime-status] [17332] Ephemeral server handling POST request
+[debug] [2020-03-08T23:47:26.759Z] [runtime-status] [17332] Ephemeral server survived.
+[info] i  functions: Finished "toolsPlaces" in ~1s
+[debug] [2020-03-08T23:47:26.914Z] [worker-toolsPlaces-30f74853-238b-4cc8-a7d0-e39aeeb377b2]: IDLE
+[debug] [2020-03-08T23:47:26.914Z] [work-queue] {"queueLength":0,"workRunningCount":0}

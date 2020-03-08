@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-if="getLoggedInStatus !== null && getUserProfile !== null">
+  <div id="app" v-if="getLoggedInStatus !== null">
     <div v-if="getUserProfile">
       <div id="nav">
         <router-link to="/login">Login</router-link>
