@@ -20,18 +20,11 @@ const getters = {
       profile: state.user.profile
     };
   },
-  profile: state => {
+  getUserProfile: state => {
     return state.profile;
   },
   getUserId: state => {
     return state.user.uid;
-  },
-  getWorkplaces: state => state.workplaces,
-  getFigmaToken: state => {
-    if (!state.loggedIn || !state.profile || !state.profile.figmaToken)
-      return false;
-
-    return state.profile.figmaToken;
   },
   getProfileMeta: state => {
     return meta => {
@@ -52,8 +45,6 @@ const mutations = {
     state.user = user;
   },
   SET_PROFILE(state, profile) {
-    if (profile.notification === undefined) profile.notification = {};
-
     state.profile = profile;
   },
   RESET(state) {
@@ -65,18 +56,16 @@ const mutations = {
 
 const actions = {
   init: store => {
-    return new Promise((resolve, reject) => {
-      firebaseApp.auth().onAuthStateChanged(user => {
-        if (user) {
-          store.commit("SET_STATUS", true);
-          store.commit("SET_USER", firebaseApp.auth().currentUser);
-          resolve(true);
-        } else {
-          store.commit("SET_STATUS", false);
-          store.commit("SET_USER", null);
-          resolve(false);
-        }
-      });
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("Logged");
+        store.commit("SET_STATUS", true);
+        store.commit("SET_USER", firebaseApp.auth().currentUser);
+        store.dispatch("getProfile");
+      } else {
+        store.commit("SET_STATUS", false);
+        store.commit("SET_USER", null);
+      }
     });
   },
   login: (store, providerType) => {
@@ -107,8 +96,9 @@ const actions = {
     return profileRef
       .get()
       .then(profileDoc => {
-        store.commit("SET_PROFILE", profileDoc.data());
-        return profileDoc.data();
+        if (profileDoc.exists) store.commit("SET_PROFILE", profileDoc.data());
+        else store.commit("SET_PROFILE", false);
+        return profileDoc.exists;
       })
       .catch(error => {
         throw error;

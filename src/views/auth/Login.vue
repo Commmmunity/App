@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    LOGIN :
     <div v-on:click="onClick">Login</div>
   </div>
 </template>

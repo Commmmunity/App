@@ -17,7 +17,11 @@ var store = new Vuex.Store({
   mutations: {
     reset(state) {}
   },
-  actions: {}
+  actions: {
+    init() {
+      this.dispatch("auth/init");
+    }
+  }
 });
 
 export default store;
