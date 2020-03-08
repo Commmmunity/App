@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-on:click="onClick">Login</div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  name: "home",
+  components: {},
+  methods: {
+    ...mapActions({
+      StoreAuthLogin: "auth/login"
+    }),
+    onClick: function() {
+      console.log("eee");
+      this.StoreAuthLogin("google").then(user => {
+        console.log("HELLO");
+      });
+    }
   }
-}
+};
 </script>
