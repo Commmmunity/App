@@ -7,6 +7,10 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/api/v1/ping",
+        "function": "apiPing"
+      },
+      {
         "source": "/api/v1/slack/event",
         "function": "apiSlackEvent"
       },

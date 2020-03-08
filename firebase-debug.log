@@ -1,114 +1,59 @@
-[debug] [2020-03-08T11:47:23.444Z] ----------------------------------------------------------------------
-[debug] [2020-03-08T11:47:23.446Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2020-03-08T11:47:23.446Z] CLI Version:   7.14.0
-[debug] [2020-03-08T11:47:23.446Z] Platform:      darwin
-[debug] [2020-03-08T11:47:23.446Z] Node Version:  v10.16.0
-[debug] [2020-03-08T11:47:23.447Z] Time:          Sun Mar 08 2020 12:47:23 GMT+0100 (GMT+01:00)
-[debug] [2020-03-08T11:47:23.447Z] ----------------------------------------------------------------------
-[debug] [2020-03-08T11:47:23.447Z] 
-[debug] [2020-03-08T11:47:23.459Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-03-08T11:47:23.460Z] > authorizing via signed-in user
-[debug] [2020-03-08T11:47:23.460Z] [iam] checking project commmmunity-org for permissions ["firebase.projects.get"]
-[debug] [2020-03-08T11:47:23.462Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2020-03-08T11:47:23.462Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2020-03-08T11:47:23.573Z] <<< HTTP RESPONSE 200
-[debug] [2020-03-08T11:47:23.588Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/commmmunity-org:testIamPermissions  
+[debug] [2020-03-08T14:01:42.311Z] ----------------------------------------------------------------------
+[debug] [2020-03-08T14:01:42.313Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2020-03-08T14:01:42.313Z] CLI Version:   7.14.0
+[debug] [2020-03-08T14:01:42.313Z] Platform:      darwin
+[debug] [2020-03-08T14:01:42.313Z] Node Version:  v10.16.0
+[debug] [2020-03-08T14:01:42.314Z] Time:          Sun Mar 08 2020 15:01:42 GMT+0100 (GMT+01:00)
+[debug] [2020-03-08T14:01:42.314Z] ----------------------------------------------------------------------
+[debug] [2020-03-08T14:01:42.314Z] 
+[debug] [2020-03-08T14:01:42.328Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-08T14:01:42.328Z] > authorizing via signed-in user
+[debug] [2020-03-08T14:01:42.328Z] [iam] checking project commmmunity-org for permissions ["firebase.projects.get"]
+[debug] [2020-03-08T14:01:42.330Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/commmmunity-org:testIamPermissions  
 
-[debug] [2020-03-08T11:47:24.419Z] <<< HTTP RESPONSE 200
-[debug] [2020-03-08T11:47:24.420Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org  
+[debug] [2020-03-08T14:01:43.032Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-08T14:01:43.034Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org  
  
-[debug] [2020-03-08T11:47:24.640Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-08T14:01:43.209Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/jc/dev/app'...
 [info] 
-[debug] [2020-03-08T11:47:24.644Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org/webApps/-/config  
+[debug] [2020-03-08T14:01:43.212Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/commmmunity-org/webApps/-/config  
  
 [warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
 [info] ✔  functions: functions emulator started at http://localhost:5001
-[debug] [2020-03-08T11:47:25.634Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-08T14:01:43.724Z] <<< HTTP RESPONSE 200
 [info] i  functions: Watching "/Users/jc/dev/app/functions" for Cloud Functions...
-[debug] [2020-03-08T11:47:25.671Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-08T11:47:25.672Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
-[debug] [2020-03-08T11:47:25.672Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-08T11:47:25.672Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_5758.sock
-[debug] [2020-03-08T11:47:25.672Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: BUSY
+[debug] [2020-03-08T14:01:43.762Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-08T14:01:43.762Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-08T14:01:43.762Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-08T14:01:43.763Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_7125.sock
+[debug] [2020-03-08T14:01:43.763Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: BUSY
 [info] i  hosting: Serving hosting files from: dist
 [info] ✔  hosting: Local server: http://localhost:5000
-[debug] [2020-03-08T11:47:25.936Z] [runtime-status] [5758] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
-[debug] [2020-03-08T11:47:25.938Z] [runtime-status] [5758] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-08T11:47:25.940Z] [runtime-status] [5758] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2020-03-08T11:47:25.942Z] [runtime-status] [5758] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:47:25.943Z] [runtime-status] [5758] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-08T14:01:44.052Z] [runtime-status] [7125] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
+[debug] [2020-03-08T14:01:44.054Z] [runtime-status] [7125] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-08T14:01:44.062Z] [runtime-status] [7125] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-03-08T14:01:44.064Z] [runtime-status] [7125] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-08T14:01:44.065Z] [runtime-status] [7125] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
 [info] ✔  functions[apiPing]: http function initialized (http://localhost:5001/commmmunity-org/us-central1/apiPing).
 [info] ✔  functions[apiSlackEvent]: http function initialized (http://localhost:5001/commmmunity-org/us-central1/apiSlackEvent).
 [info] ✔  functions[apiSlackInvite]: http function initialized (http://localhost:5001/commmmunity-org/us-central1/apiSlackInvite).
 [info] ✔  functions[apiSlackPost]: http function initialized (http://localhost:5001/commmmunity-org/us-central1/apiSlackPost).
-[debug] [2020-03-08T11:47:26.164Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: IDLE
-[debug] [2020-03-08T11:48:31.981Z] File /Users/jc/dev/app/functions/api/slack/event.f.js changed, reloading triggers
-[debug] [2020-03-08T11:48:32.989Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
-[debug] [2020-03-08T11:48:32.990Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: FINISHING
-[debug] [2020-03-08T11:48:32.996Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-08T11:48:32.996Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
-[debug] [2020-03-08T11:48:32.996Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-08T11:48:32.997Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_5779.sock
-[debug] [2020-03-08T11:48:32.997Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: BUSY
-[debug] [2020-03-08T11:48:32.999Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: exited
-[debug] [2020-03-08T11:48:32.999Z] [worker-~diagnostic~-dc08a78f-747f-4921-bd78-edb178eb26eb]: FINISHED
-[debug] [2020-03-08T11:48:33.511Z] [runtime-status] [5779] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
-[debug] [2020-03-08T11:48:33.513Z] [runtime-status] [5779] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-08T11:48:33.516Z] [runtime-status] [5779] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2020-03-08T11:48:33.517Z] [runtime-status] [5779] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:33.518Z] [runtime-status] [5779] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:33.740Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: IDLE
-[debug] [2020-03-08T11:48:51.681Z] File /Users/jc/dev/app/functions/api/slack/event.f.js changed, reloading triggers
-[debug] [2020-03-08T11:48:52.687Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
-[debug] [2020-03-08T11:48:52.687Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: FINISHING
-[debug] [2020-03-08T11:48:52.687Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
-[debug] [2020-03-08T11:48:52.693Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-08T11:48:52.693Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
-[debug] [2020-03-08T11:48:52.693Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-08T11:48:52.694Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_5788.sock
-[debug] [2020-03-08T11:48:52.694Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: BUSY
-[debug] [2020-03-08T11:48:52.695Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: exited
-[debug] [2020-03-08T11:48:52.695Z] [worker-~diagnostic~-239397bb-9eca-4bca-a44f-dd73aa3b80aa]: FINISHED
-[debug] [2020-03-08T11:48:53.173Z] [runtime-status] [5788] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
-[debug] [2020-03-08T11:48:53.175Z] [runtime-status] [5788] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-08T11:48:53.178Z] [runtime-status] [5788] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2020-03-08T11:48:53.179Z] [runtime-status] [5788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:53.179Z] [runtime-status] [5788] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:53.358Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: IDLE
-[debug] [2020-03-08T11:48:57.713Z] File /Users/jc/dev/app/functions/api/slack/event.f.js changed, reloading triggers
-[debug] [2020-03-08T11:48:58.718Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
-[debug] [2020-03-08T11:48:58.718Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: FINISHING
-[debug] [2020-03-08T11:48:58.719Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
-[debug] [2020-03-08T11:48:58.723Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-08T11:48:58.723Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
-[debug] [2020-03-08T11:48:58.723Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-08T11:48:58.723Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_5797.sock
-[debug] [2020-03-08T11:48:58.723Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: BUSY
-[debug] [2020-03-08T11:48:58.725Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: exited
-[debug] [2020-03-08T11:48:58.725Z] [worker-~diagnostic~-5bdc4d50-3449-489f-999f-414dfc1948c8]: FINISHED
-[debug] [2020-03-08T11:48:58.964Z] [runtime-status] [5797] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
-[debug] [2020-03-08T11:48:58.966Z] [runtime-status] [5797] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-08T11:48:58.967Z] [runtime-status] [5797] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2020-03-08T11:48:58.968Z] [runtime-status] [5797] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:58.969Z] [runtime-status] [5797] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:48:59.042Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: IDLE
-[debug] [2020-03-08T11:49:08.735Z] File /Users/jc/dev/app/functions/api/slack/event.f.js changed, reloading triggers
-[debug] [2020-03-08T11:49:09.737Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
-[debug] [2020-03-08T11:49:09.738Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: FINISHING
-[debug] [2020-03-08T11:49:09.738Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
-[debug] [2020-03-08T11:49:09.742Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-08T11:49:09.742Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
-[debug] [2020-03-08T11:49:09.742Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-08T11:49:09.742Z] [worker-~diagnostic~-df9d281c-a359-45ed-97bf-e8e3ebf966ec]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_5810.sock
-[debug] [2020-03-08T11:49:09.742Z] [worker-~diagnostic~-df9d281c-a359-45ed-97bf-e8e3ebf966ec]: BUSY
-[debug] [2020-03-08T11:49:09.744Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: exited
-[debug] [2020-03-08T11:49:09.744Z] [worker-~diagnostic~-a31a4661-d4d3-4c6e-aef2-3a4f4a3204b1]: FINISHED
-[debug] [2020-03-08T11:49:09.991Z] [runtime-status] [5810] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
-[debug] [2020-03-08T11:49:09.993Z] [runtime-status] [5810] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-08T11:49:09.995Z] [runtime-status] [5810] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
-[debug] [2020-03-08T11:49:09.995Z] [runtime-status] [5810] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:49:09.996Z] [runtime-status] [5810] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
-[debug] [2020-03-08T11:49:10.070Z] [worker-~diagnostic~-df9d281c-a359-45ed-97bf-e8e3ebf966ec]: IDLE
+[debug] [2020-03-08T14:01:44.299Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: IDLE
+[debug] [2020-03-08T14:22:09.843Z] File /Users/jc/dev/app/functions/api/ping.f.js changed, reloading triggers
+[debug] [2020-03-08T14:22:10.858Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-03-08T14:22:10.859Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: FINISHING
+[debug] [2020-03-08T14:22:10.872Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-08T14:22:10.872Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-03-08T14:22:10.872Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-08T14:22:10.873Z] [worker-~diagnostic~-28490ab1-418f-44bc-a388-08636b8d17b3]: Assigning socketPath: /var/folders/fl/y2s0d3fj1158vmbnlfft5qx00000gn/T/fire_emu_7861.sock
+[debug] [2020-03-08T14:22:10.873Z] [worker-~diagnostic~-28490ab1-418f-44bc-a388-08636b8d17b3]: BUSY
+[debug] [2020-03-08T14:22:10.876Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: exited
+[debug] [2020-03-08T14:22:10.876Z] [worker-~diagnostic~-e1374a96-85c9-4978-b6b3-91567fbb87a7]: FINISHED
+[debug] [2020-03-08T14:22:11.501Z] [runtime-status] [7861] Functions runtime initialized. {"cwd":"/Users/jc/dev/app/functions","node_version":"10.16.0"}
+[debug] [2020-03-08T14:22:11.502Z] [runtime-status] [7861] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-08T14:22:11.509Z] [runtime-status] [7861] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-03-08T14:22:11.512Z] [runtime-status] [7861] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-08T14:22:11.512Z] [runtime-status] [7861] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/jc/dev/app/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-03-08T14:22:11.810Z] [worker-~diagnostic~-28490ab1-418f-44bc-a388-08636b8d17b3]: IDLE
