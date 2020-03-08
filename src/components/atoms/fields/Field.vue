@@ -3,7 +3,10 @@
     <label class="field__label" v-if="label !== ''" :for="id">{{
       label
     }}</label>
-    <div v-if="errors.$invalid && touch" class="field__error">
+    <div
+      v-if="errors !== undefined && errors.$invalid && touch"
+      class="field__error"
+    >
       Il y a des erreurs
     </div>
     <component
@@ -48,6 +51,8 @@ export default {
             "email",
             "password",
             "number",
+            "phone",
+            "location",
             "select",
             "editor",
             "textarea",

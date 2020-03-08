@@ -17,10 +17,10 @@ const config = {
 var firebaseApp = firebase.initializeApp(config);
 var functions = null;
 
-if (process.env.VUE_APP_ENV === "development") {
+if (process.env.VUE_APP_ENV === "local") {
   functions = firebaseApp.functions();
-  functions.useFunctionsEmulator("http://localhost:5000");
-} else functions = firebaseApp.functions("europe-west");
+  functions.useFunctionsEmulator("http://localhost:5001");
+} else functions = firebaseApp.functions("europe-west1");
 
 export default firebaseApp;
 export { functions, firebaseApp, firebase };

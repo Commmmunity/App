@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <div class="form__group" v-for="(group, groupId) in fields" :key="groupId">
+    <div class="form__group" v-for="(group, groupId) in form" :key="groupId">
       <Field
         v-for="(field, index) in group.fields"
         :key="index"
@@ -25,7 +25,7 @@ export default {
     Field
   },
   props: {
-    fields: {
+    form: {
       type: Object,
       required: true
     },
@@ -33,8 +33,21 @@ export default {
   },
   data: function() {
     return {
+      init: true,
       values: {}
     };
+  },
+  created() {
+    for (let [groupKey, groupData] of Object.entries(this.form)) {
+      for (let [fieldsKey, fieldsData] of Object.entries(groupData)) {
+        for (let [fieldKey, fieldData] of Object.entries(fieldsData)) {
+          if (fieldData.value)
+            this.$set(this.values, fieldKey, fieldData.value);
+        }
+      }
+    }
+
+    this.init = false;
   },
   computed: {},
   methods: {},

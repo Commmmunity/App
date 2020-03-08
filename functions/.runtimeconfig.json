@@ -1,5 +1,8 @@
 {
   "slack": {
     "token": "localtoken"
+  },
+  "google": {
+    "key": "AIzaSyCnrKKY1PdDmO5L8JPU9aicPeS0JCmbm0E"
   }
 }

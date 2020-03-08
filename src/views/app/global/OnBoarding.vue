@@ -1,7 +1,7 @@
 <template>
   <div class="onboarding">
     <h1>Onboarding</h1>
-    <Form :fields="fields" @update="onFormUpdate" :errors="$v.entries" />
+    <Form :form="form" @update="onFormUpdate" :errors="$v.entries" />
     {{ entries }}
     <div v-on:click="submit">Send</div>
   </div>
@@ -12,6 +12,11 @@ import Form from "@/components/molecules/form/Form.vue";
 import { mapGetters, mapActions } from "vuex";
 import { validationMixin } from "vuelidate";
 import { required, minLength, between } from "vuelidate/lib/validators";
+import phone from "phone";
+
+const mustBePhoneNumber = function(value) {
+  return phone(value.number, value.country).length > 0;
+};
 
 export default {
   name: "OnBoarding",
@@ -33,15 +38,36 @@ export default {
   },
   data: function() {
     return {
-      fields: {
+      form: {
         identity: {
           fields: {
-            profileFirstName: {
+            firstName: {
               type: "text",
-              id: "profileFirstName",
-              name: "profileFirstName",
+              id: "firstName",
+              name: "firstName",
+              value: "eee",
+              label: "Prénom"
+            },
+            lastName: {
+              type: "text",
+              id: "lastName",
+              name: "lastName",
               value: null,
-              label: "Votre prénom"
+              label: "Nom"
+            },
+            phone: {
+              type: "phone",
+              id: "phone",
+              name: "phone",
+              value: null,
+              label: "Numéro de téléphone"
+            },
+            location: {
+              type: "location",
+              id: "location",
+              name: "location",
+              value: null,
+              label: "Votre adresse ou Ville"
             }
           }
         }
@@ -51,9 +77,20 @@ export default {
   },
   validations: {
     entries: {
-      profileFirstName: {
-        required,
-        minLength: minLength(5)
+      firstName: {
+        required
+      },
+      lastName: {
+        required
+      },
+      phone: {
+        country: {
+          required
+        },
+        number: {
+          required
+        },
+        mustBePhoneNumber
       }
     }
   }
