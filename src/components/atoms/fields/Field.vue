@@ -14,7 +14,12 @@
         :key="fieldKey"
       >
         <div v-if="typeof errors[fieldKey] !== 'object'">
-          <div v-if="fieldKey === 'required' && !errors[fieldKey]">Requis</div>
+          <Error
+            :type="fieldKey"
+            v-if="!errors[fieldKey]"
+            :optionsQuantityMin="optionsQuantityMin"
+            :optionsQuantityMax="optionsQuantityMax"
+          />
         </div>
         <div
           v-else
@@ -22,21 +27,7 @@
           v-for="(error, errorType) in errors[fieldKey].$params"
           :key="errorType"
         >
-          <div v-if="errorType === 'required' && !errors[fieldKey][errorType]">
-            Ce champ est obligatoire
-          </div>
-          <div
-            v-else-if="
-              errorType === 'isAnImage' && !errors[fieldKey][errorType]
-            "
-          >
-            Doit être un fichier image
-          </div>
-          <div
-            v-else-if="errorType === 'maxSize' && !errors[fieldKey][errorType]"
-          >
-            Dépasse la limite autorisée de taille
-          </div>
+          <Error :type="errorType" v-if="!errors[fieldKey][errorType]" />
         </div>
       </div>
     </div>
@@ -46,8 +37,12 @@
       :id="id"
       :name="name"
       :type="type"
+      :options="options"
       :disabled="disable"
       :placeholder="placeholder"
+      :optionsQuantity="optionsQuantity"
+      :optionsQuantityMin="optionsQuantityMin"
+      :optionsQuantityMax="optionsQuantityMax"
       v-model="theValue"
     />
     <div class="field__description" v-if="description">{{ description }}</div>
@@ -55,8 +50,12 @@
 </template>
 
 <script>
+import Error from "./Error.vue";
 export default {
   name: "Field",
+  components: {
+    Error
+  },
   props: {
     id: {
       required: true,
@@ -80,6 +79,7 @@ export default {
         return (
           [
             "text",
+            "url",
             "email",
             "password",
             "number",
@@ -102,6 +102,24 @@ export default {
     disable: {
       type: Boolean,
       default: false
+    },
+    options: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    optionsQuantity: {
+      type: Number,
+      default: -1
+    },
+    optionsQuantityMin: {
+      type: Number,
+      default: -1
+    },
+    optionsQuantityMax: {
+      type: Number,
+      default: -1
     },
     placeholder: {
       type: String,
@@ -133,8 +151,10 @@ export default {
     theValue: function(newValue, oldValue) {
       if (newValue === undefined) return;
       this.$emit("input", this.theValue);
+      this.touch = true;
+      /*
       if ((oldValue !== null && oldValue !== undefined) || this.instantTouch)
-        this.touch = true;
+        this.touch = true;*/
     },
     value: function() {
       this.theValue = this.value;
@@ -146,7 +166,10 @@ export default {
         return null;
       }
       var type = this.type;
-      if (["text", "email", "password", "number"].indexOf(type) !== -1)
+      if (
+        ["text", "email", "password", "number", "url", "tel"].indexOf(type) !==
+        -1
+      )
         type = "input";
 
       return () => import(`./${type.charAt(0).toUpperCase() + type.slice(1)}`);

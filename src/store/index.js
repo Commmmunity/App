@@ -3,13 +3,15 @@ import Vuex from "vuex";
 import firebaseApp from "../modules/firebase";
 import auth from "./stores/auth";
 import tools from "./stores/tools";
+import taxos from "./stores/taxos";
 
 Vue.use(Vuex);
 
 var store = new Vuex.Store({
   modules: {
     auth,
-    tools
+    tools,
+    taxos
   },
   state: {
     state: {

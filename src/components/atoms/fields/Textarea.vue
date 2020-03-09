@@ -1,21 +1,20 @@
 <template>
-  <input
+  <textarea
     :id="id"
     :name="name"
-    :type="type"
     :disabled="disable"
     :placeholder="placeholder"
     v-model="theValue"
     v-on:keydown.enter.prevent
     v-on:focus="onFocus"
-  />
+  ></textarea>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "FieldInput",
+  name: "FieldTextarea",
   props: {
     id: {
       required: true,
@@ -31,17 +30,6 @@ export default {
     description: {
       type: String,
       required: false
-    },
-    type: {
-      type: String,
-      default: "text",
-      validator: function(value) {
-        return (
-          ["text", "email", "password", "number", "url", "tel"].indexOf(
-            value
-          ) !== -1
-        );
-      }
     },
     label: {
       type: String,

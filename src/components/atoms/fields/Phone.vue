@@ -1,14 +1,19 @@
 <template>
   <div class="phone">
     <select class="phone__country" v-model="ext">
-      <option value="FRA">+33</option>
-      <option value="USA">+1</option>
+      <option
+        v-for="country in getCountryCode"
+        :key="country.code"
+        :value="country.code"
+        >{{ country.name }} ({{ country.dial_code }})</option
+      >
+      <option value="USA">USA (+1)</option>
     </select>
     <input
       class="phone__number"
       :id="id"
       :name="name"
-      :type="type"
+      type="tel"
       :disabled="disable"
       :placeholder="placeholder"
       v-model="phoneNumber"
@@ -21,6 +26,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import phone from "phone";
+import countryCode from "@/modules/countryCode";
 
 export default {
   name: "FieldPhone",
@@ -61,11 +67,15 @@ export default {
   data: function() {
     return {
       theValue: null,
-      ext: "FRA",
+      ext: "FR",
       phoneNumber: null
     };
   },
-  computed: {},
+  computed: {
+    getCountryCode: function() {
+      return countryCode;
+    }
+  },
   methods: {
     ...mapActions({}),
     onFocus: function() {
