@@ -3,11 +3,14 @@
     <h1>Onboarding</h1>
     <Form :form="getForm" @update="onFormUpdate" :errors="$v.entries" />
     {{ entries }}
-    <div v-on:click="submit">Send</div>
+    <Button v-on:click="submit" :loading="status.submit === 'PENDING'"
+      >Submit</Button
+    >
   </div>
 </template>
 
 <script>
+import Button from "../../../components/atoms/buttons/Button.vue";
 import Form from "@/components/molecules/form/Form.vue";
 import { mapGetters, mapActions } from "vuex";
 import { validationMixin } from "vuelidate";
@@ -22,10 +25,10 @@ import phone from "phone";
 
 export default {
   name: "OnBoarding",
-  components: { Form },
+  components: { Form, Button },
   mixins: [validationMixin],
   computed: {
-    ...mapGetters("taxos", ["getInterests", "getSkills"]),
+    ...mapGetters("taxos", ["getInterests", "getSkills", "getCountries"]),
     getForm: function() {
       return {
         identity: {
@@ -59,12 +62,21 @@ export default {
               label: "Numéro de téléphone",
               required: true
             },
+            country: {
+              type: "select",
+              id: "country",
+              name: "country",
+              value: "FR",
+              options: this.getCountries,
+              label: "Pays",
+              required: true
+            },
             location: {
               type: "location",
               id: "location",
               name: "location",
               value: null,
-              label: "Votre adresse ou Ville",
+              label: "Votre adresse ou ville",
               required: true
             },
             profilePicture: {
@@ -188,22 +200,56 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      StoreGetWorkspaces: "auth/getWorkspaces",
+      StoreSaveExtentedProfile: "auth/saveExtendedProfile"
+    }),
     onFormUpdate: function(formData) {
       this.entries = formData;
     },
     submit() {
-      console.log("submit!", this.entries);
+      if (this.status.submit === "PENDING") return;
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log("INVALID");
+        this.$toasted.show("Il y a des erreurs dans le formulaire", {
+          position: "bottom-right",
+          duration: 2000,
+          type: "error"
+        });
       } else {
-        console.log("GOOOO");
+        this.status.submit = "PENDING";
+
+        var toast = this.$toasted.show("Enregistrement...", {
+          position: "bottom-right",
+          type: "error"
+        });
+
+        this.StoreSaveExtentedProfile({
+          data: this.entries,
+          toProcess: {
+            profilePicture: "file",
+            phone: "phone"
+          }
+        })
+          .then(thing => {
+            this.status.submit = "OK";
+          })
+          .catch(err => {
+            this.status.submit = "ERROR";
+            console.log(err);
+          })
+          .finally(() => {
+            toast.goAway(0);
+          });
       }
     }
   },
   data: function() {
     return {
-      entries: null
+      entries: null,
+      status: {
+        submit: "KO"
+      }
     };
   },
   validations: {
@@ -212,6 +258,9 @@ export default {
         required
       },
       lastName: {
+        required
+      },
+      country: {
         required
       },
       phone: {

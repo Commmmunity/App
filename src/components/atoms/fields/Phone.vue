@@ -7,7 +7,6 @@
         :value="country.code"
         >{{ country.name }} ({{ country.dial_code }})</option
       >
-      <option value="USA">USA (+1)</option>
     </select>
     <input
       class="phone__number"

@@ -23,6 +23,19 @@ const actions = {
       .catch(error => {
         throw error;
       });
+  },
+  place: (store, placeId) => {
+    var places = firebaseFunctions.httpsCallable("toolsPlaceDetails");
+
+    return places({
+      placeId: placeId
+    })
+      .then(results => {
+        return results;
+      })
+      .catch(error => {
+        throw error;
+      });
   }
 };
 

@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-if="getLoggedInStatus !== null">
-    <div v-if="getUserProfile">
+    <div v-if="getUserExtendedProfile">
       <div id="nav">
         <router-link to="/login">Login</router-link>
         <router-link to="/dashboard">Dashboard</router-link>
@@ -20,7 +20,7 @@ export default {
   name: "App",
   components: {},
   computed: {
-    ...mapGetters("auth", ["getLoggedInStatus", "getUserProfile"])
+    ...mapGetters("auth", ["getLoggedInStatus", "getUserExtendedProfile"])
   },
   methods: {
     ...mapActions({
@@ -28,7 +28,7 @@ export default {
     })
   },
   watch: {
-    getUserProfile: function(profile) {
+    getUserExtendedProfile: function(profile) {
       if (this.$route.name !== "onboarding" && !profile)
         this.$router.push("onboarding");
       else if (this.$route.name === "onboarding" && profile)

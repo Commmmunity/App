@@ -13,7 +13,11 @@
       v-on:focus="onFocus"
     />
     <div class="location__predictions">
+      <div class="prediction__loading" v-if="status.autocomplete === 'PENDING'">
+        Loading...
+      </div>
       <div
+        v-else
         class="prediction"
         v-for="(prediction, index) in predictions"
         :key="index"
@@ -68,13 +72,18 @@ export default {
       debouncedCall: null,
       geocode: null,
       predictions: null,
-      prevent: true
+      prevent: true,
+      status: {
+        autocomplete: "KO",
+        location: "KO"
+      }
     };
   },
   computed: {},
   methods: {
     ...mapActions({
-      StorePlaces: "tools/places"
+      StorePlaces: "tools/places",
+      StorePlaceDetails: "tools/place"
     }),
     onFocus: function() {
       this.$emit("focus");
@@ -88,6 +97,8 @@ export default {
         return;
       }
 
+      this.status.autocomplete = "PENDING";
+
       this.theValue = null;
 
       this.StorePlaces(this.entry)
@@ -97,13 +108,38 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.status.autocomplete = "OK";
         });
     },
     pickPlace: function(location) {
       this.prevent = true;
-      this.theValue = location;
       this.entry = location.description;
       this.predictions = null;
+      this.status.location = "PENDING";
+
+      this.StorePlaceDetails(location.place_id)
+        .then(thing => {
+          if (!thing.data) return false;
+          this.theValue = {
+            address: thing.data.formatted_address,
+            latitude: thing.data.geometry.location.lat,
+            longitude: thing.data.geometry.location.lng,
+            _geoloc: {
+              lat: thing.data.geometry.location.lat,
+              lng: thing.data.geometry.location.lng
+            },
+            address_components: thing.data.address_components,
+            place_id: thing.data.place_id
+          };
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.status.location = "OK";
+        });
     }
   },
   created() {

@@ -1,10 +1,12 @@
 import { firebaseApp, firebase } from "../../modules/firebase";
+import mime from "mime";
 
 const state = {
   loggedIn: null,
   user: null,
   profile: null,
-  notification: null
+  notification: null,
+  extended: null
 };
 
 const getters = {
@@ -22,6 +24,9 @@ const getters = {
   },
   getUserProfile: state => {
     return state.profile;
+  },
+  getUserExtendedProfile: state => {
+    return state.extended;
   },
   getUserId: state => {
     return state.user.uid;
@@ -46,11 +51,26 @@ const mutations = {
   },
   SET_PROFILE(state, profile) {
     state.profile = profile;
+
+    if (
+      state.profile &&
+      !state.profile.extended &&
+      state.profile.extended !== undefined
+    )
+      state.extended = state.profile.extended;
+    else state.extended = false;
+
+    if (
+      state.profile &&
+      !state.profile.notification &&
+      state.profile.notification !== undefined
+    )
+      state.notification = state.profile.notification;
   },
   RESET(state) {
     state.loggedIn = false;
     state.user = null;
-    state.workplaces = null;
+    state.extended = null;
   }
 };
 
@@ -58,7 +78,6 @@ const actions = {
   init: store => {
     firebaseApp.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log("Logged");
         store.commit("SET_STATUS", true);
         store.commit("SET_USER", firebaseApp.auth().currentUser);
         store.dispatch("getProfile");
@@ -117,6 +136,62 @@ const actions = {
       })
       .catch(error => {
         console.log(error);
+        throw error;
+      });
+  },
+  saveExtendedProfile: (store, { data, toProcess }) => {
+    var processPromises = [];
+    var storageRef = firebaseApp.storage().ref();
+
+    for (let [key, value] of Object.entries(toProcess)) {
+      if (value === "file" && data[key]) {
+        var storageRef = firebaseApp.storage().ref();
+        var filename = key + "." + mime.getExtension(data[key].type);
+
+        var imagesRef = storageRef.child(
+          "users/" + store.getters.getUserId + "/profile/" + filename
+        );
+
+        processPromises.push(
+          imagesRef
+            .put(data[key].file)
+            .then(function(snapshot) {
+              return snapshot.ref.getDownloadURL();
+            })
+            .then(function(downloadURL) {
+              data[key] = downloadURL;
+              return downloadURL;
+            })
+            .catch(error => {
+              throw error;
+            })
+        );
+      } else if (value === "phone" && data[key]) {
+        data[key] = {
+          number: data[key].cleaned[0],
+          countryCode: data[key].cleaned[1]
+        };
+      }
+    }
+
+    return Promise.all(processPromises)
+      .then(function(values) {
+        let profileRef = firebaseApp
+          .firestore()
+          .collection("users/")
+          .doc(store.getters.getUserId);
+
+        return profileRef.set(
+          {
+            extended: data
+          },
+          { merge: true }
+        );
+      })
+      .then(profileDoc => {
+        return true;
+      })
+      .catch(error => {
         throw error;
       });
   },

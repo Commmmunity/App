@@ -104,7 +104,6 @@ export default {
       default: false
     },
     options: {
-      type: Array,
       default: function() {
         return [];
       }
