@@ -5,9 +5,40 @@
     }}</label>
     <div
       v-if="errors !== undefined && errors.$invalid && touch"
-      class="field__error"
+      class="field__errors"
     >
       Il y a des erreurs
+      <div
+        class="error"
+        v-for="(fieldValue, fieldKey) in errors.$params"
+        :key="fieldKey"
+      >
+        <div v-if="typeof errors[fieldKey] !== 'object'">
+          <div v-if="fieldKey === 'required' && !errors[fieldKey]">Requis</div>
+        </div>
+        <div
+          v-else
+          class="error__type"
+          v-for="(error, errorType) in errors[fieldKey].$params"
+          :key="errorType"
+        >
+          <div v-if="errorType === 'required' && !errors[fieldKey][errorType]">
+            Ce champ est obligatoire
+          </div>
+          <div
+            v-else-if="
+              errorType === 'isAnImage' && !errors[fieldKey][errorType]
+            "
+          >
+            Doit être un fichier image
+          </div>
+          <div
+            v-else-if="errorType === 'maxSize' && !errors[fieldKey][errorType]"
+          >
+            Dépasse la limite autorisée de taille
+          </div>
+        </div>
+      </div>
     </div>
     <component
       v-bind:is="component"
@@ -19,6 +50,7 @@
       :placeholder="placeholder"
       v-model="theValue"
     />
+    <div class="field__description" v-if="description">{{ description }}</div>
   </div>
 </template>
 
@@ -52,6 +84,7 @@ export default {
             "password",
             "number",
             "phone",
+            "file",
             "location",
             "select",
             "editor",
@@ -78,6 +111,12 @@ export default {
     errors: {
       type: Object,
       required: false
+    },
+    instantTouch: {
+      // Permet de forcer l'affichage des erreurs à la première modification
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data: function() {
@@ -92,9 +131,10 @@ export default {
   },
   watch: {
     theValue: function(newValue, oldValue) {
+      if (newValue === undefined) return;
       this.$emit("input", this.theValue);
-
-      if (oldValue !== null) this.touch = true;
+      if ((oldValue !== null && oldValue !== undefined) || this.instantTouch)
+        this.touch = true;
     },
     value: function() {
       this.theValue = this.value;

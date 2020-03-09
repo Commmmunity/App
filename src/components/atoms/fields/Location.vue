@@ -1,14 +1,28 @@
 <template>
-  <input
-    :id="id"
-    :name="name"
-    type="text"
-    :disabled="disable"
-    :placeholder="placeholder"
-    v-model="theValue"
-    v-on:keydown.enter.prevent
-    v-on:focus="onFocus"
-  />
+  <div class="location">
+    <input
+      class="location__entry"
+      :id="id"
+      :name="name"
+      type="text"
+      :disabled="disable"
+      :placeholder="placeholder"
+      v-model="entry"
+      v-on:keydown.enter.prevent
+      v-on:keydown="prevent = false"
+      v-on:focus="onFocus"
+    />
+    <div class="location__predictions">
+      <div
+        class="prediction"
+        v-for="(prediction, index) in predictions"
+        :key="index"
+        v-on:click="pickPlace(prediction)"
+      >
+        {{ prediction.description }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -49,9 +63,12 @@ export default {
   },
   data: function() {
     return {
+      entry: null,
       theValue: null,
       debouncedCall: null,
-      geocode: null
+      geocode: null,
+      predictions: null,
+      prevent: true
     };
   },
   computed: {},
@@ -66,24 +83,40 @@ export default {
       this.$emit("blur");
     },
     getPlace: function() {
-      if (!this.theValue || this.theValue === "") return;
-      this.StorePlaces(this.theValue)
+      if (!this.entry || this.entry === "" || this.prevent) {
+        this.predictions = null;
+        return;
+      }
+
+      this.theValue = null;
+
+      this.StorePlaces(this.entry)
         .then(results => {
-          console.log(results);
+          if (results.data) this.predictions = results.data.predictions;
+          else this.predictions = null;
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    pickPlace: function(location) {
+      this.prevent = true;
+      this.theValue = location;
+      this.entry = location.description;
+      this.predictions = null;
     }
   },
   created() {
+    this.entry = this.value;
     this.theValue = this.value;
     this.debouncedCall = debounce(this.getPlace, 200);
   },
   watch: {
+    entry: function() {
+      this.debouncedCall();
+    },
     theValue: function() {
       this.$emit("input", this.theValue);
-      this.debouncedCall();
     },
     value: function() {
       this.theValue = this.value;

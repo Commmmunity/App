@@ -14,10 +14,6 @@ import { validationMixin } from "vuelidate";
 import { required, minLength, between } from "vuelidate/lib/validators";
 import phone from "phone";
 
-const mustBePhoneNumber = function(value) {
-  return phone(value.number, value.country).length > 0;
-};
-
 export default {
   name: "OnBoarding",
   components: { Form },
@@ -68,6 +64,15 @@ export default {
               name: "location",
               value: null,
               label: "Votre adresse ou Ville"
+            },
+            profilePicture: {
+              type: "file",
+              id: "profilePicture",
+              name: "profilePicture",
+              value: null,
+              label: "Votre photo",
+              description: "Png, Jpg ou Gif",
+              instantTouch: true
             }
           }
         }
@@ -90,7 +95,26 @@ export default {
         number: {
           required
         },
-        mustBePhoneNumber
+        mustBePhoneNumber: function(value) {
+          return phone(value.number, value.country).length > 0;
+        }
+      },
+      location: {
+        required
+      },
+      profilePicture: {
+        type: {
+          isAnImage: function(value) {
+            var available = ["image/png", "image/jpg", "image/gif"];
+            return available.includes(value);
+          }
+        },
+        size: {
+          required,
+          maxSize: function(value) {
+            return value <= 2000000;
+          }
+        }
       }
     }
   }

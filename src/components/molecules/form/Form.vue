@@ -7,7 +7,9 @@
         :id="field.id"
         :name="field.name"
         :label="field.label"
+        :description="field.description"
         :type="field.type"
+        :instantTouch="field.instantTouch !== null ? field.instantTouch : false"
         :errors="errors[index]"
         v-model="values[index]"
       />
