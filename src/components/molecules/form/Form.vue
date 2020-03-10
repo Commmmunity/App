@@ -22,6 +22,8 @@
           :name="field.name"
           :label="field.label"
           :options="field.options"
+          :optionsSearch="field.optionsSearch"
+          :optionsSearchMapping="field.optionsSearchMapping"
           :optionsQuantity="field.optionsQuantity"
           :optionsQuantityMin="field.optionsQuantityMin"
           :optionsQuantityMax="field.optionsQuantityMax"

@@ -195,14 +195,48 @@ export default {
                 "Nous vous mettons en relation avec les personnes qui maitrisent ces compétences"
             }
           }
+        },
+        buddy: {
+          title: "Votre réseau",
+          introduction: {
+            title: "Qui connaissez-vous dans la communauté ?",
+            content: "Prévenez les membres du réseau de votre arrivée"
+          },
+          fields: {
+            buddies: {
+              type: "tags",
+              id: "buddies",
+              name: "buddies",
+              value: null,
+              options: [],
+              optionsSearch: this.StoreSearchMembers,
+              optionsSearchMapping: {
+                label: function(option) {
+                  return option.firstName + " " + option.lastName;
+                },
+                id: function(option) {
+                  return option.objectID;
+                },
+                value: function(option) {
+                  return option.objectID;
+                }
+              },
+              label: "Membres du réseau",
+              required: false,
+              description:
+                "Sélectionnez les membres de la communauté que vous connaissez"
+            }
+          }
         }
       };
     }
   },
+  created() {},
   methods: {
     ...mapActions({
       StoreGetWorkspaces: "auth/getWorkspaces",
-      StoreSaveExtentedProfile: "auth/saveExtendedProfile"
+      StoreSaveExtentedProfile: "auth/saveExtendedProfile",
+      StoreSearchMembers: "members/search"
     }),
     onFormUpdate: function(formData) {
       this.entries = formData;

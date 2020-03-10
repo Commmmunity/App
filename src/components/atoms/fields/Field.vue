@@ -37,9 +37,11 @@
       :id="id"
       :name="name"
       :type="type"
-      :options="options"
       :disabled="disable"
       :placeholder="placeholder"
+      :options="options"
+      :optionsSearch="optionsSearch"
+      :optionsSearchMapping="optionsSearchMapping"
       :optionsQuantity="optionsQuantity"
       :optionsQuantityMin="optionsQuantityMin"
       :optionsQuantityMax="optionsQuantityMax"
@@ -107,6 +109,14 @@ export default {
       default: function() {
         return [];
       }
+    },
+    optionsSearch: {
+      type: Function,
+      default: null
+    },
+    optionsSearchMapping: {
+      type: Object,
+      default: null
     },
     optionsQuantity: {
       type: Number,
