@@ -35,8 +35,8 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta.title !== undefined && to.meta.title !== "")
-    document.title = to.meta.title + " - Commmmunity";
-  else document.title = "Commmmunity";
+    document.title = to.meta.title + " - Communities";
+  else document.title = "Communities";
 
   next();
 });

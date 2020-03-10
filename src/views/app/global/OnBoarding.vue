@@ -314,7 +314,12 @@ export default {
       profilePicture: {
         type: {
           isAnImage: function(value) {
-            var available = ["image/png", "image/jpg", "image/gif"];
+            var available = [
+              "image/png",
+              "image/jpg",
+              "image/jpeg",
+              "image/gif"
+            ];
             return available.includes(value);
           }
         },
