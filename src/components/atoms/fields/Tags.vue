@@ -187,6 +187,7 @@ export default {
           this.optionsCached[i].value == option.value
         ) {
           this.optionsCached.splice(i, 1);
+
           break;
         }
       }
