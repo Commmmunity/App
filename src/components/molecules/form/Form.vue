@@ -15,26 +15,28 @@
         </p>
       </div>
       <div class="group__fields">
-        <Field
-          v-for="(field, index) in group.fields"
-          :key="index"
-          :id="field.id"
-          :name="field.name"
-          :label="field.label"
-          :options="field.options"
-          :optionsSearch="field.optionsSearch"
-          :optionsSearchMapping="field.optionsSearchMapping"
-          :optionsQuantity="field.optionsQuantity"
-          :optionsQuantityMin="field.optionsQuantityMin"
-          :optionsQuantityMax="field.optionsQuantityMax"
-          :description="field.description"
-          :type="field.type"
-          :instantTouch="
-            field.instantTouch !== null ? field.instantTouch : false
-          "
-          :errors="errors[index]"
-          v-model="values[index]"
-        />
+        <div class="fields" v-for="(field, index) in group.fields" :key="index">
+          <Field
+            :id="field.id"
+            :name="field.name"
+            :label="field.label"
+            :options="field.options"
+            :optionsSearch="field.optionsSearch"
+            :optionsSearchMapping="field.optionsSearchMapping"
+            :optionsQuantity="field.optionsQuantity"
+            :optionsQuantityMin="field.optionsQuantityMin"
+            :optionsQuantityMax="field.optionsQuantityMax"
+            :description="field.description"
+            :type="field.type"
+            :required="field.required"
+            :instantTouch="
+              field.instantTouch !== null ? field.instantTouch : false
+            "
+            :errors="errors[index]"
+            v-model="values[index]"
+            v-if="field.show ? field.show(values) : true"
+          />
+        </div>
       </div>
       <div class="group__footer">
         <Button @click="nextStep(-1)" v-show="!firstStep">Retour</Button>

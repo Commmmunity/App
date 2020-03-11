@@ -28,7 +28,12 @@ export default {
   components: { Form, Button },
   mixins: [validationMixin],
   computed: {
-    ...mapGetters("taxos", ["getInterests", "getSkills", "getCountries"]),
+    ...mapGetters("taxos", [
+      "getInterests",
+      "getSkills",
+      "getCountries",
+      "getCommunitySize"
+    ]),
     getForm: function() {
       return {
         identity: {
@@ -44,7 +49,10 @@ export default {
               name: "firstName",
               value: "ee",
               label: "Prénom",
-              required: true
+              required: true,
+              validations: {
+                required
+              }
             },
             lastName: {
               type: "text",
@@ -52,7 +60,10 @@ export default {
               name: "lastName",
               value: null,
               label: "Nom",
-              required: true
+              required: true,
+              validations: {
+                required
+              }
             },
             phone: {
               type: "phone",
@@ -60,7 +71,18 @@ export default {
               name: "phone",
               value: null,
               label: "Numéro de téléphone",
-              required: true
+              required: true,
+              validations: {
+                country: {
+                  required
+                },
+                number: {
+                  required
+                },
+                mustBePhoneNumber: function(value) {
+                  return phone(value.number, value.country).length > 0;
+                }
+              }
             },
             country: {
               type: "select",
@@ -69,7 +91,10 @@ export default {
               value: "FR",
               options: this.getCountries,
               label: "Pays",
-              required: true
+              required: true,
+              validations: {
+                required
+              }
             },
             location: {
               type: "location",
@@ -77,7 +102,10 @@ export default {
               name: "location",
               value: null,
               label: "Votre adresse ou ville",
-              required: true
+              required: true,
+              validations: {
+                required
+              }
             },
             profilePicture: {
               type: "file",
@@ -87,7 +115,26 @@ export default {
               label: "Votre photo",
               description: "Png, Jpg ou Gif",
               instantTouch: true,
-              required: true
+              required: true,
+              validations: {
+                type: {
+                  isAnImage: function(value) {
+                    var available = [
+                      "image/png",
+                      "image/jpg",
+                      "image/jpeg",
+                      "image/gif"
+                    ];
+                    return available.includes(value);
+                  }
+                },
+                size: {
+                  required,
+                  maxSize: function(value) {
+                    return value <= 2000000;
+                  }
+                }
+              }
             }
           }
         },
@@ -106,7 +153,12 @@ export default {
               label: "Décrivez-vous en quelques mots",
               description:
                 "Ex: Membre de la communauté makesense depuis plus de 5 ans, je suis en charge...",
-              required: true
+              required: true,
+              validations: {
+                required,
+                minLength: minLength(40),
+                maxLength: maxLength(300)
+              }
             },
             linkedinLink: {
               type: "url",
@@ -114,7 +166,73 @@ export default {
               name: "linkedinLink",
               value: null,
               label: "Page LinkedIn",
-              required: true
+              required: true,
+              validations: {
+                required,
+                url,
+                isLinkedinLink: function(value) {
+                  return value.indexOf("linkedin.com") !== -1;
+                }
+              }
+            },
+            community: {
+              type: "text",
+              id: "community",
+              name: "community",
+              value: null,
+              label: "Nom de votre communauté",
+              description:
+                "Que ce soit un projet, une association, une entreprise...",
+              required: true,
+              validations: {
+                required,
+                maxLength: maxLength(150)
+              }
+            },
+            job: {
+              type: "text",
+              id: "job",
+              name: "job",
+              value: null,
+              label: "Intitulé de votre poste ou rôle dans cette communauté",
+              description:
+                "Ex: Leader, Community manager, Coordinateur communauté...",
+              required: false,
+              validations: {
+                maxLength: maxLength(150)
+              }
+            },
+            communityLink: {
+              type: "url",
+              id: "communityLink",
+              name: "communityLink",
+              value: null,
+              label: "Site internet de votre communauté",
+              required: false,
+              validations: {
+                url
+              }
+            },
+            communitySize: {
+              type: "select",
+              id: "communitySize",
+              name: "communitySize",
+              value: "0-100",
+              options: this.getCommunitySize,
+              label: "Taille de votre communauté",
+              required: true,
+              validations: {
+                required
+              }
+            },
+            communityOrganisation: {
+              type: "checkbox",
+              id: "communityOrganisation",
+              name: "communityOrganisation",
+              value: false,
+              label:
+                "Votre communauté est-elle liée à une organisation / entreprise ?",
+              required: false
             },
             organisation: {
               type: "text",
@@ -122,27 +240,17 @@ export default {
               name: "organisation",
               value: null,
               label: "Nom de votre organisation",
-              description:
-                "Que ce soit un projet, une association, une entreprise... une communauté 😀",
-              required: true
-            },
-            job: {
-              type: "text",
-              id: "job",
-              name: "job",
-              value: null,
-              label: "Intitulé de votre poste ou rôle",
-              description:
-                "Ex: Leader, Community manager, Coordinateur communauté...",
-              required: false
-            },
-            organisationLink: {
-              type: "url",
-              id: "organisationLink",
-              name: "organisationLink",
-              value: null,
-              label: "Site internet de votre organisation",
-              required: false
+              show: function(entries) {
+                var toshow = entries["communityOrganisation"] === true;
+                if (!toshow && entries["organisation"] !== undefined)
+                  delete entries["organisation"];
+
+                return toshow;
+              },
+              required: true,
+              validations: {
+                required
+              }
             }
           }
         },
@@ -163,7 +271,15 @@ export default {
               required: true,
               optionsQuantity: 2,
               optionsQuantityMin: 1,
-              optionsQuantityMax: 2
+              optionsQuantityMax: 2,
+              validations: {
+                arrayMin: function(value) {
+                  return value !== undefined && value.length >= 1;
+                },
+                arrayMax: function(value) {
+                  return value !== undefined && value.length <= 2;
+                }
+              }
             },
             yourSkills: {
               type: "tags",
@@ -177,7 +293,15 @@ export default {
               optionsQuantityMin: 1,
               optionsQuantityMax: 5,
               description:
-                "Cela nous permet de vous mettre en relation avec des personnes qui ont des besoins liés à ces sujets"
+                "Cela nous permet de vous mettre en relation avec des personnes qui ont des besoins liés à ces sujets",
+              validations: {
+                arrayMin: function(value) {
+                  return value !== undefined && value.length >= 1;
+                },
+                arrayMax: function(value) {
+                  return value !== undefined && value.length <= 5;
+                }
+              }
             },
             skillsMissing: {
               type: "tags",
@@ -192,7 +316,15 @@ export default {
               optionsQuantityMin: 1,
               optionsQuantityMax: 5,
               description:
-                "Nous vous mettons en relation avec les personnes qui maitrisent ces compétences"
+                "Nous vous mettons en relation avec les personnes qui maitrisent ces compétences",
+              validations: {
+                arrayMin: function(value) {
+                  return value !== undefined && value.length >= 1;
+                },
+                arrayMax: function(value) {
+                  return value !== undefined && value.length <= 5;
+                }
+              }
             }
           }
         },
@@ -286,97 +418,23 @@ export default {
       }
     };
   },
-  validations: {
-    entries: {
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      country: {
-        required
-      },
-      phone: {
-        country: {
-          required
-        },
-        number: {
-          required
-        },
-        mustBePhoneNumber: function(value) {
-          return phone(value.number, value.country).length > 0;
-        }
-      },
-      location: {
-        required
-      },
-      profilePicture: {
-        type: {
-          isAnImage: function(value) {
-            var available = [
-              "image/png",
-              "image/jpg",
-              "image/jpeg",
-              "image/gif"
-            ];
-            return available.includes(value);
-          }
-        },
-        size: {
-          required,
-          maxSize: function(value) {
-            return value <= 2000000;
-          }
-        }
-      },
-      job: {
-        maxLength: maxLength(150)
-      },
-      biography: {
-        required,
-        minLength: minLength(40),
-        maxLength: maxLength(300)
-      },
-      organisation: {
-        required,
-        maxLength: maxLength(150)
-      },
-      linkedinLink: {
-        required,
-        url,
-        isLinkedinLink: function(value) {
-          return value.indexOf("linkedin.com") !== -1;
-        }
-      },
-      organisationLink: {
-        url
-      },
-      mainInterests: {
-        arrayMin: function(value) {
-          return value !== undefined && value.length >= 1;
-        },
-        arrayMax: function(value) {
-          return value !== undefined && value.length <= 2;
-        }
-      },
-      yourSkills: {
-        arrayMin: function(value) {
-          return value !== undefined && value.length >= 1;
-        },
-        arrayMax: function(value) {
-          return value !== undefined && value.length <= 5;
-        }
-      },
-      skillsMissing: {
-        arrayMin: function(value) {
-          return value !== undefined && value.length >= 1;
-        },
-        arrayMax: function(value) {
-          return value !== undefined && value.length <= 5;
-        }
+  validations() {
+    var fieldsValidations = {};
+    for (let [groupName, group] of Object.entries(this.getForm)) {
+      for (let [fieldName, field] of Object.entries(group.fields)) {
+        if (
+          field.validations &&
+          (!field.show || (this.entries && field.show(this.entries)))
+        )
+          fieldsValidations[fieldName] = field.validations;
       }
     }
+
+    return {
+      entries: {
+        ...fieldsValidations
+      }
+    };
   }
 };
 </script>

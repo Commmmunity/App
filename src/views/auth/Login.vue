@@ -1,7 +1,18 @@
 <template>
-  <div class="home">
-    LOGIN :
-    <div v-on:click="onClick">Login</div>
+  <div class="login">
+    Acceder à Communties
+    <div v-on:click="onClick">Me connecter</div>
+    <div class="login__legal">
+      En cliquant sur "Continuer avec Google / Microsoft / Email" ci-dessus,
+      vous reconnaissez que vous avez lu et compris,
+      <router-link :to="{ name: 'terms-and-conditions' }"
+        >nos conditions d'utilisation</router-link
+      >
+      et notre
+      <router-link :to="{ name: 'privacy' }"
+        >politique de confidentialité</router-link
+      >.
+    </div>
   </div>
 </template>
 
@@ -9,17 +20,14 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "home",
+  name: "Login",
   components: {},
   methods: {
     ...mapActions({
       StoreAuthLogin: "auth/login"
     }),
     onClick: function() {
-      console.log("eee");
-      this.StoreAuthLogin("google").then(user => {
-        console.log("HELLO");
-      });
+      this.StoreAuthLogin("google").then(user => {});
     }
   }
 };

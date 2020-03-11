@@ -22,6 +22,12 @@ const state = {
       value: "contribute"
     }
   ],
+  communitySize: {
+    "0-100": "0 et 100 membres",
+    "100-1000": "100 à 1000 membres",
+    "1000-10000": "1000 à 10 000 membres",
+    "10000+": "Plus de 10 000 membres"
+  },
   skills: [
     {
       label: "Animation de groupe",
@@ -312,6 +318,9 @@ const getters = {
   },
   getCountries: state => {
     return state.countries;
+  },
+  getCommunitySize: state => {
+    return state.communitySize;
   }
 };
 

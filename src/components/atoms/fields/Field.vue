@@ -1,8 +1,8 @@
 <template>
   <div class="field">
-    <label class="field__label" v-if="label !== ''" :for="id">{{
-      label
-    }}</label>
+    <label class="field__label" v-if="label !== ''" :for="id"
+      >{{ label }}<span v-if="required">*</span></label
+    >
     <div
       v-if="errors !== undefined && errors.$invalid && touch"
       class="field__errors"
@@ -96,6 +96,10 @@ export default {
           ].indexOf(value) !== -1
         );
       }
+    },
+    required: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,

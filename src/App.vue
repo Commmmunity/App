@@ -29,7 +29,11 @@ export default {
   },
   watch: {
     getUserExtendedProfile: function(profile) {
-      if (this.$route.name !== "onboarding" && !profile)
+      if (
+        !this.$route.meta.public &&
+        this.$route.name !== "onboarding" &&
+        !profile
+      )
         this.$router.push("onboarding");
       else if (this.$route.name === "onboarding" && profile)
         this.$router.push("dashboard");
