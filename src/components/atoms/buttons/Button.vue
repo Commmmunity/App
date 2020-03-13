@@ -1,13 +1,23 @@
 <template>
   <component
     :is="tag"
-    :class="`button button--${type} button--${size}`"
+    :class="[
+      `button button--${type} button--variation--${variation} button--state--${state} button--width--${width} button--color--${color}`,
+      { 'button--icon': icon }
+    ]"
     v-on:click="$emit('click')"
     :type="inputType"
     :disabled="disabled"
   >
-    <slot v-if="!loading" />
-    <slot v-else name="loading">Processing...</slot>
+    <span
+      v-show="icon"
+      class="button__icon"
+      :style="{ backgroundImage: 'url(' + icon + ')' }"
+    ></span>
+    <div v-if="!loading" class="button__label">
+      <slot />
+    </div>
+    <div v-else name="loading" class="button__loading">Processing...</div>
   </component>
 </template>
 
@@ -35,25 +45,123 @@ export default {
       required: false,
       default: ""
     },
-    type: {
+    width: {
       type: String,
       default: "default",
       validator: function(value) {
+        return ["default", "full"].indexOf(value) !== -1;
+      }
+    },
+    type: {
+      type: String,
+      default: "primary",
+      validator: function(value) {
+        return ["big", "primary", "medium", "small"].indexOf(value) !== -1;
+      }
+    },
+    variation: {
+      type: String,
+      default: "primary",
+      validator: function(value) {
+        return ["primary", "secondary"].indexOf(value) !== -1;
+      }
+    },
+    state: {
+      type: String,
+      default: "default",
+      validator: function(value) {
+        return ["default", "disabled"].indexOf(value) !== -1;
+      }
+    },
+    color: {
+      type: String,
+      default: "primary",
+      validator: function(value) {
         return (
-          ["default", "positive", "negative", "shy", "black"].indexOf(value) !==
+          ["primary", "secondary", "pink", "beige", "google"].indexOf(value) !==
           -1
         );
       }
     },
-    size: {
-      type: String,
-      default: "default",
-      validator: function(value) {
-        return ["default", "small"].indexOf(value) !== -1;
-      }
+    icon: {
+      required: false,
+      default: null
     }
+  },
+  computed: {
+    getIcon: function() {}
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button {
+  position: relative;
+  @include border-round;
+  @include button-reset;
+  @include padding-button;
+  cursor: pointer;
+  display: inline-block;
+  background-color: $color-main;
+  border-color: $color-black;
+  font-weight: $font-weight-extrabold; // override text-body
+  border-width: $border-width-l;
+  border-style: solid;
+  font-size: $font-size-x;
+  line-height: 1em;
+  text-decoration: none !important;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &.button--width--full {
+    display: block;
+  }
+}
+
+/* PRIMARY */
+.button--primary {
+  @include border-shadow;
+}
+
+/* SMALL*/
+
+.button--small {
+  color: $color-white;
+  border: none;
+  font-size: $font-size-medium-small;
+}
+
+.button--color--google {
+  background-color: $color-google;
+  color: $color-white;
+}
+
+.button__label {
+  position: relative;
+}
+
+$icon-width: 75px;
+
+.button__icon {
+  @include border-round;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: $color-white;
+  width: $icon-width;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40px;
+}
+
+.button--icon {
+  .button__label,
+  .button__loading {
+    padding-left: $icon-width;
+  }
+}
+</style>

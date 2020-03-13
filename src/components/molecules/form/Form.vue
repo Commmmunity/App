@@ -120,6 +120,9 @@ export default {
     },
     values: function() {
       this.$emit("update", this.values);
+    },
+    currentStep: function() {
+      this.$emit("stepChange", this.currentStep);
     }
   }
 };

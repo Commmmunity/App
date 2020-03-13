@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index";
 import store from "./store/index";
+import "./assets/scss/global.scss";
 import Toasted from "vue-toasted";
 Vue.use(Toasted);
 

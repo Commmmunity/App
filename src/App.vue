@@ -1,11 +1,6 @@
 <template>
-  <div id="app" v-if="getLoggedInStatus !== null">
-    <div v-if="getUserExtendedProfile">
-      <div id="nav">
-        <router-link to="/login">Login</router-link>
-        <router-link to="/dashboard">Dashboard</router-link>
-      </div>
-    </div>
+  <div id="app" v-if="getLoggedInStatus !== null" :class="[getBackgroundColor]">
+    <Header v-show="showHeader" />
     <router-view />
   </div>
   <div v-else>
@@ -14,13 +9,26 @@
 </template>
 
 <script>
+import Header from "./components/organisms/Header.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
-  components: {},
+  components: { Header },
   computed: {
-    ...mapGetters("auth", ["getLoggedInStatus", "getUserExtendedProfile"])
+    ...mapGetters("auth", ["getLoggedInStatus", "getUserExtendedProfile"]),
+
+    showHeader: function() {
+      if (this.$route.meta.header === false) return false;
+
+      return true;
+    },
+
+    getBackgroundColor: function() {
+      if (this.$route.meta.backgroundColor)
+        return "background-" + this.$route.meta.backgroundColor;
+      else return "background-default";
+    }
   },
   methods: {
     ...mapActions({
@@ -41,3 +49,17 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.background-gray-tinted {
+  background-color: $color-gray-tinted;
+}
+
+.background-pink {
+  background-color: $color-pink;
+}
+
+.background-beige {
+  background-color: $color-beige;
+}
+</style>

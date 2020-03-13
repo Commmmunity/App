@@ -1,4 +1,5 @@
 import Login from "@/views/auth/Login.vue";
+import Home from "@/views/page/Home.vue";
 import PageNotFound from "@/views/page/NotFound.vue";
 import About from "@/views/page/About.vue";
 import Terms from "@/views/page/TermsAndConditions.vue";
@@ -11,7 +12,9 @@ const routes = [
     component: Login,
     meta: {
       sidebar: false,
-      title: "Connexion"
+      onlyLoggedOut: true,
+      title: "Connexion",
+      backgroundColor: "beige"
     }
   },
   {
@@ -49,14 +52,22 @@ const routes = [
       sidebar: false,
       title: "Hum, page non trouvée"
     }
+  },
+  {
+    path: "/",
+    name: "home",
+    component: Home,
+    meta: {
+      sidebar: false,
+      title: "Communities for community"
+    }
   }
 ];
 
 export default routes.map(route => {
   const meta = {
     ...route.meta,
-    public: true,
-    onlyLoggedOut: true
+    public: true
   };
   return { ...route, meta };
 });

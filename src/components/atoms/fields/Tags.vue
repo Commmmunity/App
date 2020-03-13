@@ -125,8 +125,15 @@ export default {
   computed: {
     getOption: function() {
       // Le search est réalisé par une fonction tierce
-      if (this.optionsSearchMapping)
+      if (this.optionsSearchMapping) {
+        var optionsWithoutAlreadySelect = this.optionsFromSearch.filter(
+          option => {
+            if (this.theValue.indexOf(option.id) !== -1) return false;
+            return true;
+          }
+        );
         return { ...this.optionsCached, ...this.optionsFromSearch };
+      }
 
       // Le search est réalisé par un filtre sur un array
       var options = this.options.filter(option => {
@@ -215,6 +222,7 @@ export default {
   },
   created() {
     if (this.value) this.theValue = this.value;
+    if (this.optionsSearch) this.search();
     this.debouncedSearch = debounce(this.search, 200);
   },
   watch: {

@@ -1,7 +1,16 @@
 <template>
   <div class="onboarding">
+    <Header :custom="true" :logotype="true">
+      <div class="header__title">Créez votre profil<br />de membre</div>
+      <NumberedList :items="getSteps" />
+    </Header>
     <h1>Onboarding</h1>
-    <Form :form="getForm" @update="onFormUpdate" :errors="$v.entries" />
+    <Form
+      :form="getForm"
+      @update="onFormUpdate"
+      :errors="$v.entries"
+      @stepChange="onStepChange"
+    />
     {{ entries }}
     <Button v-on:click="submit" :loading="status.submit === 'PENDING'"
       >Submit</Button
@@ -10,6 +19,8 @@
 </template>
 
 <script>
+import NumberedList from "../../../components/molecules/list/NumberedList.vue";
+import Header from "../../../components/organisms/Header.vue";
 import Button from "../../../components/atoms/buttons/Button.vue";
 import Form from "@/components/molecules/form/Form.vue";
 import { mapGetters, mapActions } from "vuex";
@@ -25,7 +36,7 @@ import phone from "phone";
 
 export default {
   name: "OnBoarding",
-  components: { Form, Button },
+  components: { Form, Button, Header, NumberedList },
   mixins: [validationMixin],
   computed: {
     ...mapGetters("taxos", [
@@ -34,6 +45,19 @@ export default {
       "getCountries",
       "getCommunitySize"
     ]),
+    getSteps: function(params) {
+      var steps = {};
+
+      for (let [groupId, group] of Object.entries(this.getForm)) {
+        steps[groupId] = {
+          name: group.title,
+          active: this.currentFormStep === groupId,
+          id: groupId
+        };
+      }
+
+      return steps;
+    },
     getForm: function() {
       return {
         identity: {
@@ -408,11 +432,15 @@ export default {
             toast.goAway(0);
           });
       }
+    },
+    onStepChange: function(stepId) {
+      this.currentFormStep = stepId;
     }
   },
   data: function() {
     return {
       entries: null,
+      currentFormStep: null,
       status: {
         submit: "KO"
       }
@@ -438,3 +466,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.header__title {
+  @include text-large-black;
+  margin-left: $margin-small;
+}
+</style>

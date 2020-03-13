@@ -10,10 +10,19 @@ const routes = [
   {
     path: "/onboarding",
     name: "onboarding",
-    component: OnBoarding
+    component: OnBoarding,
+    meta: {
+      header: false,
+      backgroundColor: "pink"
+    }
   }
 ];
 
 export default routes.map(route => {
-  return { ...route, meta: { public: false } };
+  const meta = {
+    ...route.meta,
+    public: false
+  };
+
+  return { ...route, meta };
 });

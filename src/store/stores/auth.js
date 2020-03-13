@@ -28,6 +28,13 @@ const getters = {
   getUserExtendedProfile: state => {
     return state.extended;
   },
+  getUserAvatar: state => {
+    if (state.loggedIn && state.extended && state.extended.profilePicture)
+      return state.extended.profilePicture;
+    else if (state.loggedIn && state.user.photoURL) return state.user.photoURL;
+
+    return false;
+  },
   getUserId: state => {
     return state.user.uid;
   },
@@ -95,11 +102,13 @@ const actions = {
     else if (providerType === "microsoft")
       provider = new firebase.auth.OAuthProvider("microsoft.com");
 
-    firebaseApp
+    return firebaseApp
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        console.log(firebaseApp.auth().currentUser);
+        return store.dispatch("getProfile");
+      })
+      .then(profileExist => {
         return firebaseApp.auth().currentUser;
       })
       .catch(err => {

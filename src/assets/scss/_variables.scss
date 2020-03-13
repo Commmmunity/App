@@ -1,0 +1,81 @@
+//----- color -----//
+$color-white: #fff;
+$color-main: #ffae2d;
+$color-secondary: #5c84c9;
+$color-pink: #ffb391;
+$color-green: #a0d7d4;
+$color-beige: #f1eae1;
+$color-black: #303133;
+$color-text: #303133;
+$color-gray: #e0e0e0;
+$color-gray-dark: #828282;
+$color-gray-tinted: #cbc3b8;
+
+$color-positive: #13ce66;
+$color-negative: #f21d1d;
+$color-warning: #fef090;
+$color-border: $color-black;
+
+$color-google: #4485f4;
+
+//----- fonts -----//
+$font-primary: "Raleway", sans-serif !important;
+$font-secondary: "Raleway", sans-serif;
+
+$font-base-size: 18px;
+// other font sizes are in mixins
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+//----- dimensions -----//
+$main-size: 20px;
+$size-xxs: $main-size/4;
+$size-s: $main-size/2;
+$size: $main-size;
+$size-m: $main-size * 2;
+$size-l: $main-size * 4;
+
+$width-small: 250px;
+$width-medium: 450px;
+
+//----- borders -----//
+$border-radius: 10px;
+$border-radius-double: $border-radius * 2;
+$border-radius-full: 1000px;
+
+$border-width: 1px;
+$border-width-m: 3px;
+$border-width-l: 8px;
+$border-width-xl: 10px;
+
+$border: $border-width solid $color-border;
+
+//----- spacings -----//
+$padding-small: $main-size/2;
+$padding-default: $main-size;
+$padding-large: $main-size * 2;
+
+$margin-small: $main-size/2;
+$margin-default: $main-size;
+$margin-large: $main-size * 2;
+
+$margin-equal: 1rem;
+
+//----- responsive -----//
+$breakpoints: (
+  "small": 767px,
+  "medium": 992px,
+  "large": 1200px
+) !default;
+
+//----- section -----//
+
+//----- section -----//
+
+//----- section -----//

@@ -18,6 +18,7 @@ const mutations = {};
 
 const actions = {
   search: (store, searchkey) => {
+    if (!searchkey) searchkey = "";
     return index.search(searchkey, {}).then(({ hits }) => {
       return hits;
     });
