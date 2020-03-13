@@ -44,6 +44,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.numberedlist {
+  &--line {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .numberedlist__item {
+      margin-right: $margin-large;
+    }
+  }
+}
 .numberedlist__item {
   @include text-body;
 

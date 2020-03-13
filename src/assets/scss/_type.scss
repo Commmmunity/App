@@ -114,6 +114,57 @@ $line-height-xxl-relative: 1.2em;
   font-weight: $font-weight-semibold;
 }
 
+@mixin label-input {
+  font-size: $font-size-normal-large;
+  line-height: $line-height-base;
+  font-weight: $font-weight-extrabold;
+}
+
+@mixin field-text {
+  font-size: $font-size-medium;
+  line-height: $line-height-base;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+}
+
+@mixin label-placeholder {
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+  ::-ms-input-placeholder {
+    /* IE 10+ */
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+  ::placeholdezr {
+    color: $color-gray-tinted;
+    font-family: $font-primary;
+    font-weight: $font-weight-semibold;
+  }
+}
+
 ///////// END TYPESCALE - other text types
 
 @mixin menu-item {

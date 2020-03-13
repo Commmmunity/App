@@ -1,5 +1,6 @@
 <template>
   <input
+    class="fieldinput"
     :id="id"
     :name="name"
     :type="type"
@@ -86,4 +87,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fieldinput {
+  @include field;
+}
+</style>

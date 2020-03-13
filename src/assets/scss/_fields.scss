@@ -1,0 +1,16 @@
+@mixin field {
+  @include field-text;
+  @include label-placeholder;
+  @include border-radius;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  padding: 1.4rem 1.27rem;
+  font-family: $font-primary;
+
+  border-color: $color-black;
+  border-width: $border-width-ml;
+  border-style: solid;
+  width: 100%;
+}

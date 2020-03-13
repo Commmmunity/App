@@ -200,4 +200,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.field {
+  margin-bottom: $margin-default;
+}
+
+.field__label {
+  display: block;
+  @include label-input;
+  margin-bottom: $margin-small;
+}
+</style>

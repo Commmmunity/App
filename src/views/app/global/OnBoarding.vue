@@ -2,23 +2,31 @@
   <div class="onboarding">
     <Header :custom="true" :logotype="true">
       <div class="header__title">Créez votre profil<br />de membre</div>
-      <NumberedList :items="getSteps" />
+      <NumberedList :items="getSteps" direction="line" />
     </Header>
-    <h1>Onboarding</h1>
-    <Form
-      :form="getForm"
-      @update="onFormUpdate"
-      :errors="$v.entries"
-      @stepChange="onStepChange"
-    />
-    {{ entries }}
-    <Button v-on:click="submit" :loading="status.submit === 'PENDING'"
+    <div class="onboarding__form">
+      <WorkArea size="xsmall">
+        <Form
+          :form="getForm"
+          @update="onFormUpdate"
+          :errors="$v.entries"
+          @stepChange="onStepChange"
+          :introduction="false"
+        />
+      </WorkArea>
+    </div>
+
+    <Button
+      v-on:click="submit"
+      v-show="false"
+      :loading="status.submit === 'PENDING'"
       >Submit</Button
     >
   </div>
 </template>
 
 <script>
+import WorkArea from "../../../components/layouts/WorkArea.vue";
 import NumberedList from "../../../components/molecules/list/NumberedList.vue";
 import Header from "../../../components/organisms/Header.vue";
 import Button from "../../../components/atoms/buttons/Button.vue";
@@ -36,7 +44,7 @@ import phone from "phone";
 
 export default {
   name: "OnBoarding",
-  components: { Form, Button, Header, NumberedList },
+  components: { Form, Button, Header, NumberedList, WorkArea },
   mixins: [validationMixin],
   computed: {
     ...mapGetters("taxos", [
@@ -71,7 +79,8 @@ export default {
               type: "text",
               id: "firstName",
               name: "firstName",
-              value: "ee",
+              value: null,
+              placeholder: "Michel",
               label: "Prénom",
               required: true,
               validations: {
@@ -471,5 +480,10 @@ export default {
 .header__title {
   @include text-large-black;
   margin-left: $margin-small;
+  margin-right: $margin-large * 2;
+}
+
+.onboarding__form {
+  @include padding-container-page;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="workarea" :class="[getSize]">
+  <div class="workarea" :class="['workarea--' + getSize]">
     <slot />
   </div>
 </template>
@@ -11,13 +11,14 @@ export default {
   name: "WorkArea",
   computed: {
     getSize: function(params) {
-      return "-" + this.size;
+      return this.size;
     }
   },
   props: {
     size: {
       required: false,
       type: String,
+      default: "default",
       validator: function(value) {
         return ["default", "small", "xsmall"].indexOf(value) !== -1;
       }
@@ -33,11 +34,11 @@ export default {
 .workarea {
   @include view;
 
-  &.-small {
+  &--small {
     @include workarea-small;
   }
 
-  &.-xsmall {
+  &--xsmall {
     @include workarea-xsmall;
   }
 }

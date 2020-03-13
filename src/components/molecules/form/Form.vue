@@ -6,7 +6,10 @@
       :key="groupId"
       v-show="currentStep === groupId"
     >
-      <div class="group__introduction" v-if="group.introduction">
+      <div
+        class="group__introduction"
+        v-if="group.introduction && introduction"
+      >
         <h2 class="introduction__title" v-if="group.introduction.title">
           {{ group.introduction.title }}
         </h2>
@@ -20,6 +23,7 @@
             :id="field.id"
             :name="field.name"
             :label="field.label"
+            :placeholder="field.placeholder"
             :options="field.options"
             :optionsSearch="field.optionsSearch"
             :optionsSearchMapping="field.optionsSearchMapping"
@@ -61,6 +65,11 @@ export default {
     form: {
       type: Object,
       required: true
+    },
+    introduction: {
+      type: Boolean,
+      required: false,
+      default: true
     },
     errors: null
   },
