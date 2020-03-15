@@ -1,7 +1,7 @@
 <template>
-  <div class="location">
+  <div class="fieldlocation">
     <input
-      class="location__entry"
+      class="fieldlocation__entry"
       :id="id"
       :name="name"
       type="text"
@@ -12,18 +12,22 @@
       v-on:keydown="prevent = false"
       v-on:focus="onFocus"
     />
-    <div class="location__predictions">
-      <div class="prediction__loading" v-if="status.autocomplete === 'PENDING'">
+    <div class="fieldlocation__predictions" v-if="predictions">
+      <div
+        class="prediction__loading loading-part"
+        v-if="status.autocomplete === 'PENDING'"
+      >
         Loading...
       </div>
-      <div
-        v-else
-        class="prediction"
-        v-for="(prediction, index) in predictions"
-        :key="index"
-        v-on:click="pickPlace(prediction)"
-      >
-        {{ prediction.description }}
+      <div v-else class="content-part">
+        <div
+          class="prediction content-item"
+          v-for="(prediction, index) in predictions"
+          :key="index"
+          v-on:click="pickPlace(prediction)"
+        >
+          {{ prediction.description }}
+        </div>
       </div>
     </div>
   </div>
@@ -161,4 +165,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fieldlocation__entry {
+  @include field($type: "search");
+}
+
+.fieldlocation__predictions {
+  @include field-autocomplete;
+}
+</style>

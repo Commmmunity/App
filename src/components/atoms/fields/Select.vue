@@ -1,15 +1,17 @@
 <template>
-  <select
-    class="select"
-    v-model="theValue"
-    :id="id"
-    :disabled="disable"
-    :name="name"
-  >
-    <option v-for="(option, index) in options" :key="index" :value="index">{{
-      option
-    }}</option>
-  </select>
+  <div class="fieldselect">
+    <select
+      class="fieldselect__input"
+      v-model="theValue"
+      :id="id"
+      :disabled="disable"
+      :name="name"
+    >
+      <option v-for="(option, index) in options" :key="index" :value="index">{{
+        option
+      }}</option>
+    </select>
+  </div>
 </template>
 
 <script>
@@ -75,4 +77,28 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fieldselect {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 13px;
+    content: "";
+    display: block;
+    background-image: url("~@/assets/images/ui/icons/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 59px;
+    height: 44px;
+    pointer-events: none;
+  }
+}
+
+.fieldselect__input {
+  @include field;
+  cursor: pointer;
+}
+</style>

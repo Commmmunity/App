@@ -1,5 +1,6 @@
 // the files imported here should contain only VARIABLES and MIXINS.
 
+@import "helper";
 @import "variables";
 @import "reset";
 @import "responsive";
@@ -8,3 +9,4 @@
 @import "border";
 @import "layout";
 @import "fields";
+@import "icons";

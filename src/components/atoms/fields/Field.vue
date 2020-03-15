@@ -1,52 +1,62 @@
 <template>
-  <div class="field">
+  <div
+    class="field"
+    :class="[
+      { 'field--label': label !== '' },
+      { 'field--error': errors !== undefined && errors.$invalid && touch }
+    ]"
+  >
     <label class="field__label" v-if="label !== ''" :for="id"
       >{{ label }}<span v-if="required">*</span></label
     >
+    <div class="field__container">
+      <component
+        v-bind:is="component"
+        class="field__component"
+        :id="id"
+        :name="name"
+        :type="type"
+        :disabled="disable"
+        :placeholder="placeholder"
+        :options="options"
+        :optionsSearch="optionsSearch"
+        :optionsSearchMapping="optionsSearchMapping"
+        :optionsQuantity="optionsQuantity"
+        :optionsQuantityMin="optionsQuantityMin"
+        :optionsQuantityMax="optionsQuantityMax"
+        v-model="theValue"
+      />
+    </div>
+
     <div
       v-if="errors !== undefined && errors.$invalid && touch"
       class="field__errors"
     >
-      Il y a des erreurs
-      <div
-        class="error"
-        v-for="(fieldValue, fieldKey) in errors.$params"
-        :key="fieldKey"
-      >
-        <div v-if="typeof errors[fieldKey] !== 'object'">
-          <Error
-            :type="fieldKey"
-            v-if="!errors[fieldKey]"
-            :optionsQuantityMin="optionsQuantityMin"
-            :optionsQuantityMax="optionsQuantityMax"
-          />
-        </div>
+      <div class="errors__container">
         <div
-          v-else
-          class="error__type"
-          v-for="(error, errorType) in errors[fieldKey].$params"
-          :key="errorType"
+          class="error"
+          v-for="(fieldValue, fieldKey) in errors.$params"
+          :key="fieldKey"
         >
-          <Error :type="errorType" v-if="!errors[fieldKey][errorType]" />
+          <div v-if="typeof errors[fieldKey] !== 'object'">
+            <Error
+              :type="fieldKey"
+              v-if="!errors[fieldKey]"
+              :optionsQuantityMin="optionsQuantityMin"
+              :optionsQuantityMax="optionsQuantityMax"
+            />
+          </div>
+          <div
+            v-else
+            class="error__type"
+            v-for="(error, errorType) in errors[fieldKey].$params"
+            :key="errorType"
+          >
+            <Error :type="errorType" v-if="!errors[fieldKey][errorType]" />
+          </div>
         </div>
       </div>
     </div>
-    <component
-      v-bind:is="component"
-      class="field__component"
-      :id="id"
-      :name="name"
-      :type="type"
-      :disabled="disable"
-      :placeholder="placeholder"
-      :options="options"
-      :optionsSearch="optionsSearch"
-      :optionsSearchMapping="optionsSearchMapping"
-      :optionsQuantity="optionsQuantity"
-      :optionsQuantityMin="optionsQuantityMin"
-      :optionsQuantityMax="optionsQuantityMax"
-      v-model="theValue"
-    />
     <div class="field__description" v-if="description">{{ description }}</div>
   </div>
 </template>
@@ -203,11 +213,64 @@ export default {
 <style scoped lang="scss">
 .field {
   margin-bottom: $margin-default;
+  position: relative;
 }
 
 .field__label {
   display: block;
   @include label-input;
   margin-bottom: $margin-small;
+}
+
+.field__errors {
+  z-index: 2;
+  position: absolute;
+  left: 0px;
+  padding-top: 30px;
+  max-width: 100%;
+  pointer-events: none;
+
+  &:before {
+    position: absolute;
+    top: -20px;
+    left: 90px;
+    content: "";
+    display: block;
+    background-image: url("~@/assets/images/ui/field/arrow-error-up.svg");
+    width: 58px;
+    height: 67px;
+  }
+
+  .errors__container {
+    margin-left: 125px;
+    background-color: $color-negative;
+    padding: 20px;
+    margin-right: -40px;
+    border: $color-text $border-width-ml solid;
+    @include text-body-black;
+  }
+}
+
+.field__container {
+  position: relative;
+
+  &:before {
+    z-index: 1;
+    position: absolute;
+    top: $border-width-ml;
+    bottom: $border-width-ml;
+    left: $border-width-ml;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    content: "";
+    display: block;
+    width: 0px;
+    background-color: $color-negative;
+    transition: width 0.2s;
+  }
+
+  .field--error &:before {
+    width: $border-width-ml;
+  }
 }
 </style>

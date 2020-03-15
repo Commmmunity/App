@@ -128,37 +128,37 @@ $line-height-xxl-relative: 1.2em;
 }
 
 @mixin label-placeholder {
-  ::-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
   }
-  ::-moz-placeholder {
+  &::-moz-placeholder {
     /* Firefox 19+ */
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
   }
-  ::-ms-input-placeholder {
+  &::-ms-input-placeholder {
     /* IE 10+ */
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
   }
-  :-ms-input-placeholder {
+  &:-ms-input-placeholder {
     /* IE 10+ */
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
   }
-  :-moz-placeholder {
+  &:-moz-placeholder {
     /* Firefox 18- */
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
   }
-  ::placeholdezr {
+  &::placeholder {
     color: $color-gray-tinted;
     font-family: $font-primary;
     font-weight: $font-weight-semibold;
