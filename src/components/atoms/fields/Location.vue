@@ -11,14 +11,13 @@
       v-on:keydown.enter.prevent
       v-on:keydown="prevent = false"
       v-on:focus="onFocus"
+      v-on:blur="onBlur"
     />
     <div class="fieldlocation__predictions" v-if="predictions">
       <div
         class="prediction__loading loading-part"
         v-if="status.autocomplete === 'PENDING'"
-      >
-        Loading...
-      </div>
+      ></div>
       <div v-else class="content-part">
         <div
           class="prediction content-item"
@@ -172,5 +171,13 @@ export default {
 
 .fieldlocation__predictions {
   @include field-autocomplete;
+}
+
+.prediction__loading {
+  height: 70px;
+  @include icon-loading();
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50px;
 }
 </style>

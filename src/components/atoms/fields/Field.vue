@@ -3,7 +3,8 @@
     class="field"
     :class="[
       { 'field--label': label !== '' },
-      { 'field--error': errors !== undefined && errors.$invalid && touch }
+      { 'field--error': errors !== undefined && errors.$invalid && touch },
+      { 'field--focus': focus }
     ]"
   >
     <label class="field__label" v-if="label !== ''" :for="id"
@@ -25,11 +26,13 @@
         :optionsQuantityMin="optionsQuantityMin"
         :optionsQuantityMax="optionsQuantityMax"
         v-model="theValue"
+        @focus="onFocus"
+        @blur="onBlur"
       />
     </div>
 
     <div
-      v-if="errors !== undefined && errors.$invalid && touch"
+      v-if="errors !== undefined && errors.$invalid && touch && !focus"
       class="field__errors"
     >
       <div class="errors__container">
@@ -164,7 +167,8 @@ export default {
     return {
       theValue: null,
       component: null,
-      touch: false
+      touch: false,
+      focus: false
     };
   },
   created() {
@@ -206,6 +210,14 @@ export default {
       .catch(err => {
         console.log(err);
       });
+  },
+  methods: {
+    onFocus: function(params) {
+      this.focus = true;
+    },
+    onBlur: function(params) {
+      this.focus = false;
+    }
   }
 };
 </script>

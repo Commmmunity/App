@@ -9,6 +9,7 @@
     v-model="theValue"
     v-on:keydown.enter.prevent
     v-on:focus="onFocus"
+    v-on:blur="onBlur"
   />
 </template>
 

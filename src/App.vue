@@ -3,9 +3,7 @@
     <Header v-show="showHeader" />
     <router-view />
   </div>
-  <div v-else>
-    Wait...
-  </div>
+  <div class="app__wait" v-else></div>
 </template>
 
 <script>
@@ -61,5 +59,12 @@ export default {
 
 .background-beige {
   background-color: $color-beige;
+}
+
+.app__wait {
+  @include view;
+  @include icon-loading;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>
