@@ -1,14 +1,13 @@
 <template>
   <div class="phone">
-    <select class="phone__country" v-model="ext">
-      <option
-        v-for="country in getCountryCode"
-        :key="country.code"
-        :value="country.code"
-        >{{ country.name }} ({{ country.dial_code }})</option
-      >
-    </select>
-    <input
+    <SelectCustom
+      id="phone__country"
+      :options="getCountryCode"
+      v-model="ext"
+      class="phone__country"
+      :shortName="true"
+    />
+    <FieldInput
       class="phone__number"
       :id="id"
       :name="name"
@@ -18,17 +17,21 @@
       v-model="phoneNumber"
       v-on:keydown.enter.prevent
       v-on:focus="onFocus"
+      v-on:blur="onBlur"
     />
   </div>
 </template>
 
 <script>
+import SelectCustom from "./SelectCustom.vue";
 import { mapGetters, mapActions } from "vuex";
 import phone from "phone";
 import countryCode from "@/modules/countryCode";
+import FieldInput from "./Input";
 
 export default {
   name: "FieldPhone",
+  components: { SelectCustom, FieldInput },
   props: {
     id: {
       required: true,
@@ -72,7 +75,17 @@ export default {
   },
   computed: {
     getCountryCode: function() {
-      return countryCode;
+      var output = [];
+
+      countryCode.forEach(country =>
+        output.push({
+          name: country.name + " (" + country.dial_code + ")",
+          shortName: country.dial_code,
+          value: country.code
+        })
+      );
+
+      return output;
     }
   },
   methods: {
@@ -112,4 +125,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.phone {
+  @include flex;
+}
+
+.phone__country {
+  margin-right: $margin-small;
+}
+</style>

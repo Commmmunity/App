@@ -1,7 +1,10 @@
 <template>
   <div class="onboarding">
     <Header :custom="true" :logotype="true">
-      <div class="header__title">Créez votre profil<br />de membre</div>
+      <div class="header__title">
+        Créez votre profil
+        <br />de membre
+      </div>
       <NumberedList :items="getSteps" direction="line" />
     </Header>
     <div class="onboarding__form">
@@ -16,12 +19,7 @@
       </WorkArea>
     </div>
 
-    <Button
-      v-on:click="submit"
-      v-show="false"
-      :loading="status.submit === 'PENDING'"
-      >Submit</Button
-    >
+    <Button v-on:click="submit" v-show="false" :loading="status.submit === 'PENDING'">Submit</Button>
   </div>
 </template>
 
@@ -91,6 +89,7 @@ export default {
               type: "text",
               id: "lastName",
               name: "lastName",
+              placeholder: "Strogoff",
               value: null,
               label: "Nom",
               required: true,
@@ -102,8 +101,12 @@ export default {
               type: "phone",
               id: "phone",
               name: "phone",
-              value: null,
+              value: {
+                country: "FR",
+                number: null
+              },
               label: "Numéro de téléphone",
+              placeholder: "06 75 94 03 94",
               required: true,
               validations: {
                 country: {

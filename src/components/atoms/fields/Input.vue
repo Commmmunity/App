@@ -10,6 +10,7 @@
     v-on:keydown.enter.prevent
     v-on:focus="onFocus"
     v-on:blur="onBlur"
+    ref="field"
   />
 </template>
 
@@ -57,7 +58,8 @@ export default {
       type: String,
       required: false,
       default: ""
-    }
+    },
+    bus: null
   },
   data: function() {
     return {
@@ -72,10 +74,19 @@ export default {
     },
     onBlur: function() {
       this.$emit("blur");
+    },
+    focus: function() {
+      this.$nextTick(() => {
+        this.$refs.field.focus();
+      });
     }
   },
   created() {
     this.theValue = this.value;
+    if (this.bus) this.bus.$on("focus", this.focus);
+  },
+  destroyed() {
+    if (this.bus) this.bus.$off("focus", this.focus);
   },
   watch: {
     theValue: function() {

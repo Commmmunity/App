@@ -9,11 +9,7 @@
     :type="inputType"
     :disabled="disabled"
   >
-    <span
-      v-show="icon"
-      class="button__icon"
-      :style="{ backgroundImage: 'url(' + icon + ')' }"
-    ></span>
+    <span v-show="icon" class="button__icon" :style="{ backgroundImage: 'url(' + icon + ')' }"></span>
     <div v-if="!loading" class="button__label">
       <slot />
     </div>
@@ -63,7 +59,7 @@ export default {
       type: String,
       default: "primary",
       validator: function(value) {
-        return ["primary", "secondary"].indexOf(value) !== -1;
+        return ["primary", "secondary", "back"].indexOf(value) !== -1;
       }
     },
     state: {
@@ -111,6 +107,7 @@ export default {
   line-height: 1em;
   text-decoration: none !important;
   transition: background-color 0.2s, border-color 0.2s;
+  text-align: center;
 
   &.button--width--full {
     display: block;
@@ -120,6 +117,12 @@ export default {
 /* PRIMARY */
 .button--primary {
   @include border-shadow;
+}
+
+/* MEDIUM */
+.button--medium {
+  font-size: $font-size-large;
+  border-width: $border-width-ml;
 }
 
 /* SMALL*/
@@ -162,6 +165,23 @@ $icon-width: 75px;
   .button__label,
   .button__loading {
     padding-left: $icon-width;
+  }
+}
+
+/* VARIATION */
+
+// --BACK
+.button--variation--back {
+  background-color: transparent;
+  @include icon-arrow;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:after {
+    display: block;
+    height: 30px;
+    content: "";
+    width: 20px;
   }
 }
 </style>

@@ -6,16 +6,15 @@
       :key="groupId"
       v-show="currentStep === groupId"
     >
-      <div
-        class="group__introduction"
-        v-if="group.introduction && introduction"
-      >
-        <h2 class="introduction__title" v-if="group.introduction.title">
-          {{ group.introduction.title }}
-        </h2>
-        <p class="introduction__content" v-if="group.introduction.content">
-          {{ group.introduction.content }}
-        </p>
+      <div class="group__introduction" v-if="group.introduction && introduction">
+        <h2
+          class="introduction__title"
+          v-if="group.introduction.title"
+        >{{ group.introduction.title }}</h2>
+        <p
+          class="introduction__content"
+          v-if="group.introduction.content"
+        >{{ group.introduction.content }}</p>
       </div>
       <div class="group__fields">
         <div class="fields" v-for="(field, index) in group.fields" :key="index">
@@ -43,8 +42,14 @@
         </div>
       </div>
       <div class="group__footer">
-        <Button @click="nextStep(-1)" v-show="!firstStep">Retour</Button>
-        <Button @click="nextStep(1)" v-show="!lastStep">Continuer</Button>
+        <Button
+          @click="nextStep(-1)"
+          type="medium"
+          variation="back"
+          v-show="!firstStep"
+          class="footer__back"
+        ></Button>
+        <Button @click="nextStep(1)" type="medium" v-show="!lastStep" class="footer__next">Continuer</Button>
       </div>
     </div>
   </div>
@@ -137,4 +142,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.group__footer {
+  @include flex;
+}
+
+.footer__next {
+  width: 100%;
+}
+
+.footer__back {
+  margin-right: $margin-small;
+}
+</style>

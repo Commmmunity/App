@@ -12,6 +12,7 @@ $padding-field-horizontal: 1.27rem;
   padding: $padding-field-vertical $padding-field-horizontal;
   font-family: $font-primary;
   line-height: $line-height-base;
+  background-color: $color-white;
 
   border-color: $color-black;
   border-width: $border-width-ml;
@@ -73,5 +74,36 @@ $padding-field-horizontal: 1.27rem;
     right: $border-width-ml;
     content: "";
     display: block;
+  }
+}
+
+@mixin select-option {
+  @include field-text;
+  padding: $padding-field-vertical/1.5 $padding-field-horizontal;
+  background-color: $color-background;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-white;
+  }
+}
+
+@mixin select {
+  position: relative;
+  padding-right: 100px;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 13px;
+    content: "";
+    display: block;
+    background-image: url("~@/assets/images/ui/icons/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 59px;
+    height: 44px;
+    pointer-events: none;
   }
 }

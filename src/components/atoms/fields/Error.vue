@@ -30,6 +30,8 @@ export default {
       if (this.type === "required") return "Ce champ est obligatoire";
       else if (this.type === "url")
         return "Doit être en format lien : https://example.com";
+      else if (this.type === "mustBePhoneNumber")
+        return "Doit être un numéro de téléphone valide";
       else if (this.type === "isAnImage") return "Doit être un fichier image";
       else if (this.type === "minLength") return "Trop court";
       else if (this.type === "maxLength") return "Trop long";

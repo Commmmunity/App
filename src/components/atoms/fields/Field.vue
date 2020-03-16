@@ -7,9 +7,10 @@
       { 'field--focus': focus }
     ]"
   >
-    <label class="field__label" v-if="label !== ''" :for="id"
-      >{{ label }}<span v-if="required">*</span></label
-    >
+    <label class="field__label" v-if="label !== ''" :for="id">
+      {{ label }}
+      <span v-if="required">*</span>
+    </label>
     <div class="field__container">
       <component
         v-bind:is="component"
@@ -31,16 +32,9 @@
       />
     </div>
 
-    <div
-      v-if="errors !== undefined && errors.$invalid && touch && !focus"
-      class="field__errors"
-    >
+    <div v-if="errors !== undefined && errors.$invalid && touch && !focus" class="field__errors">
       <div class="errors__container">
-        <div
-          class="error"
-          v-for="(fieldValue, fieldKey) in errors.$params"
-          :key="fieldKey"
-        >
+        <div class="error" v-for="(fieldValue, fieldKey) in errors.$params" :key="fieldKey">
           <div v-if="typeof errors[fieldKey] !== 'object'">
             <Error
               :type="fieldKey"
@@ -168,7 +162,8 @@ export default {
       theValue: null,
       component: null,
       touch: false,
-      focus: false
+      focus: false,
+      first: true
     };
   },
   created() {
@@ -176,7 +171,9 @@ export default {
   },
   watch: {
     theValue: function(newValue, oldValue) {
-      if (newValue === undefined) return;
+      if (this.first) return (this.first = false);
+
+      //if (newValue === undefined) return;
       this.$emit("input", this.theValue);
       this.touch = true;
       /*
@@ -284,5 +281,9 @@ export default {
   .field--error &:before {
     width: $border-width-ml;
   }
+}
+
+.field__description {
+  margin-top: $margin-small;
 }
 </style>
