@@ -1,5 +1,8 @@
 <template>
-  <input type="checkbox" :id="id" :name="name" v-model="theValue" />
+  <label class="fieldcheckbox" :class="[{ 'fieldcheckbox--checked': theValue }]"
+    ><input type="checkbox" :id="id" :name="name" v-model="theValue" />
+    {{ placeholder }}</label
+  >
 </template>
 
 <script>
@@ -13,6 +16,10 @@ export default {
       type: String
     },
     name: {
+      required: false,
+      type: String
+    },
+    placeholder: {
       required: false,
       type: String
     },
@@ -57,4 +64,25 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fieldcheckbox {
+  @include icon-checkbox;
+  @include field-text;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+  height: 61px;
+  display: block;
+  padding-left: 60px;
+  padding-top: 15px;
+  cursor: pointer;
+
+  &--checked {
+    @include icon-checkbox(active);
+  }
+
+  input {
+    display: none;
+  }
+}
+</style>

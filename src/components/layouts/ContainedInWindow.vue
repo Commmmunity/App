@@ -43,11 +43,13 @@ export default {
     window.addEventListener("resize", this.onResize);
     window.addEventListener("scroll", this.onScroll);
     this.bus.$on("refresh", this.onRefresh);
+    this.bus.$on("focus", this.onFocus);
     this.windowHeight = window.innerHeight;
   },
   destroyed() {
     window.removeEventListener("resize", this.onResize);
     window.removeEventListener("scroll", this.onScroll);
+    this.bus.$off("focus", this.onFocus);
     this.bus.$off("refresh", this.onRefresh);
   },
   mounted() {
@@ -60,6 +62,10 @@ export default {
       this.$nextTick(() => {
         this.refreshHeight();
       });
+    },
+    onFocus: function() {
+      console.log(this.$refs.container);
+      this.$refs.container.scrollTo(0, 0);
     },
     onResize: function(params) {
       this.windowHeight = window.innerHeight;

@@ -126,6 +126,8 @@ export default {
 
       if (nextStep === this.steps.length - 1) this.lastStep = true;
       else this.lastStep = false;
+
+      window.scrollTo(0, 0);
     }
   },
   watch: {

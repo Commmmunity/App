@@ -19,7 +19,12 @@
       </WorkArea>
     </div>
 
-    <Button v-on:click="submit" v-show="false" :loading="status.submit === 'PENDING'">Submit</Button>
+    <Button
+      v-on:click="submit"
+      v-show="false"
+      :loading="status.submit === 'PENDING'"
+      >Submit</Button
+    >
   </div>
 </template>
 
@@ -137,6 +142,7 @@ export default {
               id: "location",
               name: "location",
               value: null,
+              placeholder: "11 rue biscornet, 75012",
               label: "Votre adresse ou ville",
               required: true,
               validations: {
@@ -187,6 +193,7 @@ export default {
               name: "biography",
               value: "azeazeazeazeaze azea zeaze azeaz eaze zae aze ",
               label: "Décrivez-vous en quelques mots",
+              placeholder: "Amoure.ux.se des commaunauté j'ai...",
               description:
                 "Ex: Membre de la communauté makesense depuis plus de 5 ans, je suis en charge...",
               required: true,
@@ -200,6 +207,7 @@ export default {
               type: "url",
               id: "linkedinLink",
               name: "linkedinLink",
+              placeholder: "https://linkedin.com/mon_profil",
               value: null,
               label: "Page LinkedIn",
               required: true,
@@ -215,6 +223,7 @@ export default {
               type: "text",
               id: "community",
               name: "community",
+              placeholder: "Ex: makesense",
               value: null,
               label: "Nom de votre communauté",
               description:
@@ -230,6 +239,7 @@ export default {
               id: "job",
               name: "job",
               value: null,
+              placeholder: "Ex: Ambassadeur, Community dev",
               label: "Intitulé de votre poste ou rôle dans cette communauté",
               description:
                 "Ex: Leader, Community manager, Coordinateur communauté...",
@@ -243,6 +253,7 @@ export default {
               id: "communityLink",
               name: "communityLink",
               value: null,
+              placeholder: "https://macommunaute.com",
               label: "Site internet de votre communauté",
               required: false,
               validations: {
@@ -265,6 +276,7 @@ export default {
               type: "checkbox",
               id: "communityOrganisation",
               name: "communityOrganisation",
+              placeholder: "Oui c'est le cas",
               value: false,
               label:
                 "Votre communauté est-elle liée à une organisation / entreprise ?",
@@ -275,6 +287,7 @@ export default {
               id: "organisation",
               name: "organisation",
               value: null,
+              placeholder: "Ex: association makesense",
               label: "Nom de votre organisation",
               show: function(entries) {
                 var toshow = entries["communityOrganisation"] === true;

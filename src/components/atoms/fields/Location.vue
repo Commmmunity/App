@@ -151,8 +151,9 @@ export default {
     this.debouncedCall = debounce(this.getPlace, 200);
   },
   watch: {
-    entry: function() {
-      this.debouncedCall();
+    entry: function(NewValue, OldValue) {
+      if (!OldValue) this.getPlace();
+      else this.debouncedCall();
     },
     theValue: function() {
       this.$emit("input", this.theValue);

@@ -1,10 +1,18 @@
 <template>
   <div class="fieldselectcustom">
-    <div class="fieldselectcustom__choices" ref="fieldselectcustom" v-on:click="wantToChoose">
+    <div
+      class="fieldselectcustom__choices"
+      ref="fieldselectcustom"
+      v-on:click="wantToChoose"
+    >
       <span v-if="!theValue">Sélectionnez une option</span>
-      <span v-else>{{getSelectedOptions}}</span>
+      <span v-else>{{ getSelectedOptions }}</span>
     </div>
-    <div class="fieldselectcustom__overlay" v-on:click="showChoices = false" v-show="showChoices"></div>
+    <div
+      class="fieldselectcustom__overlay"
+      v-on:click="showChoices = false"
+      v-show="showChoices"
+    ></div>
     <ContainedInWindow
       :reference="getContainerReference"
       :bus="bus"
@@ -31,7 +39,9 @@
             v-on:click="onClick(option.value)"
             class="input__option"
             :class="[{ 'input__option--selected': value === option.value }]"
-          >{{ option.name }}</div>
+          >
+            {{ option.name }}
+          </div>
         </div>
         <div v-else class="input__nooptions">Pas de résultats</div>
       </div>
@@ -134,7 +144,10 @@ export default {
     wantToChoose: function() {
       this.showChoices = this.showChoices ? false : true;
       this.bus.$emit("refresh");
-      if (this.showChoices) this.bus.$emit("focus");
+      if (this.showChoices) {
+        this.bus.$emit("focus");
+        this.bus.$emit("scrollTop");
+      }
     },
     onClick: function(value) {
       if (this.theValue !== value) {

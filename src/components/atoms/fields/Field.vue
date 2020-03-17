@@ -4,7 +4,7 @@
     :class="[
       { 'field--label': label !== '' },
       { 'field--error': errors !== undefined && errors.$invalid && touch },
-      { 'field--focus': focus }
+      { 'field--focus': focus, 'field--with-description': description }
     ]"
   >
     <label class="field__label" v-if="label !== ''" :for="id">
@@ -32,9 +32,16 @@
       />
     </div>
 
-    <div v-if="errors !== undefined && errors.$invalid && touch && !focus" class="field__errors">
+    <div
+      v-if="errors !== undefined && errors.$invalid && touch && !focus"
+      class="field__errors"
+    >
       <div class="errors__container">
-        <div class="error" v-for="(fieldValue, fieldKey) in errors.$params" :key="fieldKey">
+        <div
+          class="error"
+          v-for="(fieldValue, fieldKey) in errors.$params"
+          :key="fieldKey"
+        >
           <div v-if="typeof errors[fieldKey] !== 'object'">
             <Error
               :type="fieldKey"
@@ -223,6 +230,15 @@ export default {
 .field {
   margin-bottom: $margin-default;
   position: relative;
+  &--with-description {
+    margin-bottom: $margin-default + 5;
+  }
+
+  &:hover {
+    .field__description {
+      opacity: 1;
+    }
+  }
 }
 
 .field__label {
@@ -285,5 +301,8 @@ export default {
 
 .field__description {
   margin-top: $margin-small;
+  @include text-xsmall;
+  opacity: 0.2;
+  transition: opacity 0.2s;
 }
 </style>

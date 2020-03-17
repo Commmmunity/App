@@ -1,11 +1,11 @@
 <template>
   <textarea
+    class="fieldtextarea"
     :id="id"
     :name="name"
     :disabled="disable"
     :placeholder="placeholder"
     v-model="theValue"
-    v-on:keydown.enter.prevent
     v-on:focus="onFocus"
   ></textarea>
 </template>
@@ -74,4 +74,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fieldtextarea {
+  @include field;
+  min-height: 200px;
+}
+</style>
