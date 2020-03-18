@@ -64,8 +64,11 @@ export default {
       });
     },
     onFocus: function() {
-      console.log(this.$refs.container);
-      this.$refs.container.scrollTo(0, 0);
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$refs.superContainer.scrollTo(0, 0);
+        }, 10);
+      });
     },
     onResize: function(params) {
       this.windowHeight = window.innerHeight;

@@ -4,7 +4,8 @@
     :class="[
       { 'field--label': label !== '' },
       { 'field--error': errors !== undefined && errors.$invalid && touch },
-      { 'field--focus': focus, 'field--with-description': description }
+      { 'field--focus': focus, 'field--with-description': description },
+      'field--type--' + this.type
     ]"
   >
     <label class="field__label" v-if="label !== ''" :for="id">
@@ -32,16 +33,9 @@
       />
     </div>
 
-    <div
-      v-if="errors !== undefined && errors.$invalid && touch && !focus"
-      class="field__errors"
-    >
+    <div v-if="errors !== undefined && errors.$invalid && touch && !focus" class="field__errors">
       <div class="errors__container">
-        <div
-          class="error"
-          v-for="(fieldValue, fieldKey) in errors.$params"
-          :key="fieldKey"
-        >
+        <div class="error" v-for="(fieldValue, fieldKey) in errors.$params" :key="fieldKey">
           <div v-if="typeof errors[fieldKey] !== 'object'">
             <Error
               :type="fieldKey"
@@ -157,6 +151,10 @@ export default {
       type: Object,
       required: false
     },
+    separator: {
+      type: Object,
+      required: false
+    },
     instantTouch: {
       // Permet de forcer l'affichage des erreurs à la première modification
       type: Boolean,
@@ -228,10 +226,9 @@ export default {
 
 <style scoped lang="scss">
 .field {
-  margin-bottom: $margin-default;
+  margin-bottom: $padding-medium;
   position: relative;
   &--with-description {
-    margin-bottom: $margin-default + 5;
   }
 
   &:hover {
@@ -296,6 +293,14 @@ export default {
 
   .field--error &:before {
     width: $border-width-ml;
+  }
+
+  .field--type--tags &,
+  .field--type--file &,
+  .field--type--checkbox & {
+    &:before {
+      display: none;
+    }
   }
 }
 

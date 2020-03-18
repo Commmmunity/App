@@ -1,66 +1,51 @@
 <template>
   <div class="tags">
-    <div class="tags__search">
-      <input
-        class="search__input"
-        type="text"
-        placeholder="Chercher une option"
-        v-model="filter"
-      />
-      <span
-        class="search__remove"
-        v-show="filter && filter !== ''"
-        v-on:click="filter = null"
-      >
-        <Icon type="close" />
-      </span>
-    </div>
-    <div class="tags__options">
+    <header class="tags__header">
+      <div class="tags__search">
+        <input class="search__input" type="text" :placeholder="placeholder" v-model="filter" />
+        <span class="search__remove" v-show="filter && filter !== ''" v-on:click="filter = null"></span>
+      </div>
+      <p class="tags__indication" v-if="optionsQuantity && optionsQuantity !== -1">
+        {{ optionsQuantity }} choix maximum,
+        <span
+          v-if="theValue.length >= 0 && optionsQuantity - theValue.length > 0"
+        >
+          encore
+          <strong>{{ optionsQuantity - theValue.length }} choix</strong>
+        </span>
+        <strong v-else-if="theValue.length >= 0">c'est fait !</strong>
+      </p>
+    </header>
+    <div class="tags__options" v-if="getOption.length > 0 || Object.entries(getOption).length > 0">
       <div
         class="tags__option"
         :class="{ 'tags__option--selected': theValue.includes(option.value) }"
         v-for="(option, index) in getOption"
         :key="index"
+        v-on:click="onChoice(option)"
       >
-        <Icon
-          class="option__selected-icon"
-          type="check"
-          v-show="theValue.includes(option.value)"
-        />
-        <span class="option__label" v-on:click="onChoice(option)">{{
+        <span class="option__label">
+          {{
           option.label
-        }}</span>
-        <span
-          class="option__remove"
-          v-show="theValue.includes(option.value)"
-          v-on:click="onRemove(option)"
-        >
-          <Icon type="close" />
+          }}
         </span>
       </div>
     </div>
-    <p
-      class="tags__indication"
-      v-if="optionsQuantity && optionsQuantity !== -1"
-    >
-      {{ optionsQuantity }} choix maximum,
-      <span v-if="theValue.length >= 0 && optionsQuantity - theValue.length > 0"
-        >encore {{ optionsQuantity - theValue.length }} choix.</span
-      >
-      <span v-else-if="theValue.length >= 0">vous n'avez plus de choix.</span>
-    </p>
+    <div v-else class="tags__search--nothing">🕵🏽‍♀️ Rien de ne correspond à votre recherche</div>
   </div>
 </template>
 
 <script>
 import Icon from "../icons/Icon.vue";
 import { mapGetters, mapActions } from "vuex";
+import FieldTag from "./Tag";
 import debounce from "lodash.debounce";
 
 export default {
   name: "FieldTags",
   components: {
-    Icon
+    Icon,
+    FieldTag
   },
   props: {
     id: {
@@ -119,7 +104,8 @@ export default {
       filter: null,
       debouncedSearch: null,
       optionsFromSearch: [],
-      optionsCached: []
+      optionsCached: [],
+      selected: false
     };
   },
   computed: {
@@ -162,8 +148,10 @@ export default {
         this.optionsQuantity &&
         this.optionsQuantity !== -1 &&
         this.theValue.length >= this.optionsQuantity
-      )
-        return;
+      ) {
+        if (this.theValue.includes(option.value)) return this.onRemove(option);
+        else return;
+      }
 
       if (!this.theValue.includes(option.value)) {
         this.theValue.push(option.value);
@@ -181,6 +169,8 @@ export default {
         }
 
         if (!found) this.optionsCached.push(option);
+      } else {
+        this.onRemove(option);
       }
     },
     onRemove: function(option) {
@@ -239,4 +229,87 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search__input {
+  @include field($type: "search", $size: "small");
+}
+
+.tags__header {
+  @include flex;
+  align-items: center;
+  margin-top: $margin-large;
+}
+
+.tags__indication {
+  @include text-small;
+  margin-left: $main-size;
+  text-align: right;
+  flex-grow: 1;
+
+  strong {
+    @include text-small-extrabold;
+  }
+}
+
+.tags__option {
+  @include text-small;
+  @include icon-checkbox;
+  background-position: right;
+  background-size: 2rem;
+  background-color: transparent;
+  border: $color-text $border-width-m solid;
+  border-radius: $border-radius;
+  padding: 0.5rem 1rem;
+  padding-right: 2.5rem;
+  margin: 0 8px 12px 0;
+
+  display: inline-block;
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+
+  &:hover {
+  }
+
+  &--selected {
+    background-color: $color-secondary !important;
+    @include icon-checkbox($status: active);
+    color: $color-white;
+  }
+}
+
+.tags__options {
+  max-height: 300px;
+  overflow: scroll;
+  margin-top: $margin-default;
+  margin-bottom: $margin-large;
+}
+
+.tags__search {
+  position: relative;
+  flex-grow: 3;
+}
+
+.search__remove {
+  @include icon-remove;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.5rem;
+  z-index: 1;
+  height: 30px;
+  width: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+}
+
+.tags__search--nothing {
+  margin-top: $margin-large;
+  margin-bottom: $margin-large;
+  text-align: center;
+  @include text-body-black;
+}
+</style>

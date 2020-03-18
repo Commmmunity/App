@@ -7,6 +7,7 @@ $color-green: #a0d7d4;
 $color-beige: #f1eae1;
 $color-black: #303133;
 $color-text: #303133;
+$color-text-opacity: rgb(48, 49, 51, 0.2);
 $color-gray: #e0e0e0;
 $color-background: #f2f2f2;
 $color-gray-medium: $color-gray;
@@ -62,6 +63,7 @@ $border: $border-width solid $color-border;
 //----- spacings -----//
 $padding-small: $main-size/2;
 $padding-default: $main-size;
+$padding-medium: $main-size * 1.5;
 $padding-large: $main-size * 2;
 
 $margin-small: $main-size/2;

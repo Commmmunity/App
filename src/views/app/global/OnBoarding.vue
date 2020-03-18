@@ -19,12 +19,7 @@
       </WorkArea>
     </div>
 
-    <Button
-      v-on:click="submit"
-      v-show="false"
-      :loading="status.submit === 'PENDING'"
-      >Submit</Button
-    >
+    <Button v-on:click="submit" v-show="false" :loading="status.submit === 'PENDING'">Submit</Button>
   </div>
 </template>
 
@@ -314,6 +309,7 @@ export default {
               type: "tags",
               id: "mainInterests",
               name: "mainInterests",
+              placeholder: "Intérêt (ex: Contribuer)",
               value: null,
               options: this.getInterests,
               label: "Intérêts",
@@ -321,6 +317,9 @@ export default {
               optionsQuantity: 2,
               optionsQuantityMin: 1,
               optionsQuantityMax: 2,
+              separator: {
+                bottom: true
+              },
               validations: {
                 arrayMin: function(value) {
                   return value !== undefined && value.length >= 1;
@@ -338,9 +337,13 @@ export default {
               options: this.getSkills,
               label: "Vos 5 compétences clées",
               required: true,
+              placeholder: "Votre compétence (ex: Animation)",
               optionsQuantity: 5,
               optionsQuantityMin: 1,
               optionsQuantityMax: 5,
+              separator: {
+                bottom: true
+              },
               description:
                 "Cela nous permet de vous mettre en relation avec des personnes qui ont des besoins liés à ces sujets",
               validations: {
@@ -358,12 +361,16 @@ export default {
               name: "skillsMissing",
               value: null,
               options: this.getSkills,
+              placeholder: "Compétence recherchée (ex: Design)",
               label:
                 "Les 5 compétences que vous recherchez / qui vous manquent",
               required: true,
               optionsQuantity: 5,
               optionsQuantityMin: 1,
               optionsQuantityMax: 5,
+              separator: {
+                bottom: true
+              },
               description:
                 "Nous vous mettons en relation avec les personnes qui maitrisent ces compétences",
               validations: {
@@ -388,6 +395,7 @@ export default {
               type: "tags",
               id: "buddies",
               name: "buddies",
+              placeholder: "Nom, Prénom, Communauté... (ex: Solène makesense)",
               value: null,
               options: [],
               optionsSearch: this.StoreSearchMembers,
@@ -402,7 +410,7 @@ export default {
                   return option.objectID;
                 }
               },
-              label: "Membres du réseau",
+              label: "Retrouvez vos connaissances",
               required: false,
               description:
                 "Sélectionnez les membres de la communauté que vous connaissez"

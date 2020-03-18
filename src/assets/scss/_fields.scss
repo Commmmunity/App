@@ -1,7 +1,7 @@
 $padding-field-vertical: 1.4rem;
 $padding-field-horizontal: 1.27rem;
 
-@mixin field($type: false) {
+@mixin field($type: false, $size: normal) {
   @include field-text;
   @include label-placeholder;
   @include border-radius;
@@ -19,10 +19,23 @@ $padding-field-horizontal: 1.27rem;
   border-style: solid;
   width: 100%;
 
+  @if $size == small {
+    padding-top: $padding-field-vertical / 2;
+    padding-bottom: $padding-field-vertical / 2;
+  }
+
   @if $type {
     padding-left: 4rem;
     background-position: 1rem;
     background-repeat: no-repeat;
+
+    @if $size == small {
+      padding-left: 2.5rem;
+      background-position: 0.6rem;
+      background-size: 1.5rem;
+      font-size: $font-size-normal;
+      border-width: $border-width-m;
+    }
   }
 
   @if $type == search {

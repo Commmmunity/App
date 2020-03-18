@@ -17,7 +17,12 @@
         >{{ group.introduction.content }}</p>
       </div>
       <div class="group__fields">
-        <div class="fields" v-for="(field, index) in group.fields" :key="index">
+        <div
+          class="field__container"
+          v-for="(field, index) in group.fields"
+          :key="index"
+          :class="[{ 'field__container--separator-top': field.separator !== undefined && field.separator.top, 'field__container--separator-bottom': field.separator !== undefined && field.separator.bottom}]"
+        >
           <Field
             :id="field.id"
             :name="field.name"
@@ -155,5 +160,18 @@ export default {
 
 .footer__back {
   margin-right: $margin-small;
+}
+
+.field__container {
+  &--separator-top {
+    border-top: $border-width-m $color-text dotted;
+    margin-top: $margin-large;
+    padding-top: $margin-large;
+  }
+
+  &--separator-bottom {
+    border-bottom: $border-width-m $color-text dashed;
+    margin-bottom: $margin-large;
+  }
 }
 </style>
