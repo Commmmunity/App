@@ -36,6 +36,7 @@
             :optionsQuantityMax="field.optionsQuantityMax"
             :description="field.description"
             :type="field.type"
+            :variation="field.variation"
             :required="field.required"
             :instantTouch="
               field.instantTouch !== null ? field.instantTouch : false

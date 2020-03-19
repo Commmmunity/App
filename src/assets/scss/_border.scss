@@ -14,9 +14,14 @@
   border-radius: $border-radius-full;
 }
 
-@mixin avatar {
+@mixin avatar($shadow: false) {
   border-radius: 1000px;
   overflow: hidden;
+  border-radius: $border-radius;
+
+  @if ($shadow == true) {
+    box-shadow: 4px 4px 0px $color-secondary;
+  }
 }
 
 @mixin elevated {

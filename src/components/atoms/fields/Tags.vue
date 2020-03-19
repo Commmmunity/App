@@ -1,6 +1,9 @@
 <template>
   <div class="tags">
-    <header class="tags__header">
+    <header
+      class="tags__header"
+      :class="[{'tags__header--with-indication': optionsQuantity && optionsQuantity !== -1}]"
+    >
       <div class="tags__search">
         <input class="search__input" type="text" :placeholder="placeholder" v-model="filter" />
         <span class="search__remove" v-show="filter && filter !== ''" v-on:click="filter = null"></span>
@@ -19,16 +22,25 @@
     <div class="tags__options" v-if="getOption.length > 0 || Object.entries(getOption).length > 0">
       <div
         class="tags__option"
-        :class="{ 'tags__option--selected': theValue.includes(option.value) }"
+        :class="[{ 'tags__option--selected': theValue.includes(option.value) }, 'tags__option--' + getVariation]"
         v-for="(option, index) in getOption"
         :key="index"
         v-on:click="onChoice(option)"
       >
-        <span class="option__label">
-          {{
-          option.label
-          }}
-        </span>
+        <div class="option__container">
+          <div class="option__image" v-if="option.image">
+            <img :src="option.image" />
+          </div>
+
+          <div class="option__label">
+            <div>
+              {{
+              option.label
+              }}
+            </div>
+            <div class="option__description" v-if="option.description">{{option.description}}</div>
+          </div>
+        </div>
       </div>
     </div>
     <div v-else class="tags__search--nothing">🕵🏽‍♀️ Rien de ne correspond à votre recherche</div>
@@ -96,6 +108,15 @@ export default {
       required: false,
       default: null,
       type: Object
+    },
+    variation: {
+      type: String,
+      default: "inline",
+      validator: function(value) {
+        if (!value) return true;
+
+        return ["inline", "block", "user"].indexOf(value) !== -1;
+      }
     }
   },
   data: function() {
@@ -109,6 +130,10 @@ export default {
     };
   },
   computed: {
+    getVariation: function() {
+      if (!this.variation) return "inline";
+      return this.variation;
+    },
     getOption: function() {
       // Le search est réalisé par une fonction tierce
       if (this.optionsSearchMapping) {
@@ -197,11 +222,21 @@ export default {
           if (this.optionsSearchMapping) {
             this.optionsFromSearch = [];
             hits.forEach(hit => {
-              this.optionsFromSearch.push({
+              var data = {
                 id: this.optionsSearchMapping.id(hit),
                 value: this.optionsSearchMapping.value(hit),
-                label: this.optionsSearchMapping.label(hit)
-              });
+                label: this.optionsSearchMapping.label
+                  ? this.optionsSearchMapping.label(hit)
+                  : null,
+                description: this.optionsSearchMapping.description
+                  ? this.optionsSearchMapping.description(hit)
+                  : null,
+                image: this.optionsSearchMapping.image
+                  ? this.optionsSearchMapping.image(hit)
+                  : null
+              };
+
+              this.optionsFromSearch.push(data);
             });
           } else {
             this.options = hits;
@@ -269,12 +304,50 @@ export default {
   transition: background-color 0.2s;
 
   &:hover {
+    background-color: $color-background;
+  }
+
+  .option__container {
+    @include flex;
+    align-items: center;
+  }
+
+  .option__image {
+    height: 40px;
+    width: 40px;
+    margin-right: $margin-small;
+    margin-left: -0.5rem;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .option__description {
+    @include text-small;
   }
 
   &--selected {
     background-color: $color-secondary !important;
     @include icon-checkbox($status: active);
-    color: $color-white;
+    color: $color-white !important;
+  }
+
+  &--block {
+    display: block;
+    margin-right: 0px;
+  }
+
+  &--user {
+    display: block;
+    @include field-text;
+    margin-right: 0px;
+
+    .option__image {
+      @include avatar;
+    }
   }
 }
 
@@ -287,7 +360,11 @@ export default {
 
 .tags__search {
   position: relative;
-  flex-grow: 3;
+  flex-basis: 100%;
+
+  .tags__header--with-indication & {
+    flex-basis: 400px;
+  }
 }
 
 .search__remove {

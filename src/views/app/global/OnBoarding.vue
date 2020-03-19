@@ -398,10 +398,17 @@ export default {
               placeholder: "Nom, Prénom, Communauté... (ex: Solène makesense)",
               value: null,
               options: [],
+              variation: "user",
               optionsSearch: this.StoreSearchMembers,
               optionsSearchMapping: {
                 label: function(option) {
                   return option.firstName + " " + option.lastName;
+                },
+                image: function(option) {
+                  return option.profilePicture;
+                },
+                description: function(option) {
+                  return option.community;
                 },
                 id: function(option) {
                   return option.objectID;

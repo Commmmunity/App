@@ -27,6 +27,7 @@
         :optionsQuantity="optionsQuantity"
         :optionsQuantityMin="optionsQuantityMin"
         :optionsQuantityMax="optionsQuantityMax"
+        :variation="variation"
         v-model="theValue"
         @focus="onFocus"
         @blur="onBlur"
@@ -154,6 +155,11 @@ export default {
     separator: {
       type: Object,
       required: false
+    },
+    variation: {
+      type: String,
+      required: false,
+      default: ""
     },
     instantTouch: {
       // Permet de forcer l'affichage des erreurs à la première modification
